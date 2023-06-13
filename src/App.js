@@ -1,13 +1,17 @@
+
 import React from "react";
 import NavBar from "./components/layout/navBar/NavBar";
-// import Footer from "./components/layout/footer/Footer";
 import { Outlet,Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function App() {
   let user=true;
   let username='joyel';
+  const theme=useSelector((store)=>store?.theme?.currentTheme)
+  let bgText=theme==='dark'? ' bg-[#141414] text-[#ffffff]' : 'bg-[#ffffff] text-[#141414]'
+  console.log(theme);
   return (
-    <div className="h-screen w-full">
+    <div className={`h-screen w-full ${bgText}`}>
       {!user ? (
         <div className="h-full">{<Navigate to={'login'}/>}</div>
       ) : (
@@ -17,11 +21,10 @@ function App() {
             <div className="w-[20%] min-w-fit h-full p-1 py-5 sm:py-1">
               <NavBar />
             </div>
-            <div className="w-[80%]  overflow-y-auto max-h-[100%] py-10 hide-scrollbar">
+            <div className="w-[80%]  overflow-y-auto max-h-[100%] py-10 px-2 hide-scrollbar">
                 <Outlet />
             </div>
           </div>
-          {/* <div className="flex justify-center"><Footer /></div> */}
         </div>
       )}
     </div>

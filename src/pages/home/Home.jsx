@@ -9,9 +9,9 @@ const Home = () => {
       <div className="cards flex flex-wrap gap-10 justify-center">
         {Array(10)
           .fill()
-          .map((element) => {
+          .map((element,i) => {
             return (
-              <FullPost userId={username}/>
+              <FullPost userId={username} key={i}/>
             );
           })}
       </div>

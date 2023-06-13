@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import FullPost from "../../components/post/FullPost";
-import ProfileTopDiv from "./ProfileTopDiv";
+import ProfileTopDiv from "../../components/profile/ProfileTopDiv";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const Profile = () => {
@@ -17,7 +17,7 @@ const Profile = () => {
           <div className="flex items-center gap-4">
             <h1 className="cursor-pointer">Posts</h1>
             <Link to={`/${username}/new-post`}>
-            <AiOutlinePlusCircle/>
+              <AiOutlinePlusCircle />
             </Link>
           </div>
           <div>
@@ -26,7 +26,7 @@ const Profile = () => {
           <div className="flex items-center gap-4">
             <h1 className="cursor-pointer">ADS</h1>
             <Link to={`/${username}/ad-post`}>
-            <AiOutlinePlusCircle/> 
+              <AiOutlinePlusCircle />
             </Link>
           </div>
         </div>

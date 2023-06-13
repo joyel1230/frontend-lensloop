@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import { MdOutlineExplore } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import Logo from "../../micros/logo/Logo";
+import Logo from "../../micros/Logo";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
@@ -16,7 +16,7 @@ const NavBar = () => {
     <div className="h-full w-full border-r-2 border-current">
       <ul className="h-full flex flex-col justify-between p-3 text-sm font-bold xs:text-center max-h-[90%]">
         <Link to={"/"}>
-          <li className="text-3xl">
+          <li className="text-3xl flex justify-center sm:flex-none sm:justify-normal">
             <span className="sm:hidden">
               <Logo />
             </span>
@@ -24,43 +24,43 @@ const NavBar = () => {
           </li>
         </Link>
         <Link to={"/userId"}>
-          <li className="flex gap-5 items-center">
+          <li className="flex gap-5 items-center justify-center sm:justify-normal">
             <AiOutlineHome size={30} color="current" />
             <span className="sm:flex hidden">HOME</span>
           </li>
         </Link>
         <Link to={""}>
-        <li className="flex gap-5 items-center">
+        <li className="flex gap-5 items-center justify-center sm:justify-normal">
           <AiOutlineSearch size={30} color="current" />
           <span className="sm:flex hidden">SEARCH</span>
         </li>
         </Link>
         <Link to={""}>
-        <li className="flex gap-5 items-center">
+        <li className="flex gap-5 items-center justify-center sm:justify-normal">
           <MdOutlineExplore size={30} color="current" />
           <span className="sm:flex hidden">EXPLORE</span>
         </li>
         </Link>
         <Link to={""}>
-        <li className="flex gap-5 items-center">
+        <li className="flex gap-5 items-center justify-center sm:justify-normal">
           <AiOutlineMessage size={30} color="current" />
           <span className="sm:flex hidden">MESSAGE</span>
         </li>
         </Link>
         <Link to={""}>
-        <li className="flex gap-5 items-center">
+        <li className="flex gap-5 items-center justify-center sm:justify-normal">
           <AiOutlineHeart size={30} color="current" />
           <span className="sm:flex hidden">NOTIFICATION</span>
         </li>
         </Link>
         <Link to={""}>
-        <li className="flex gap-5 items-center">
+        <li className="flex gap-5 items-center justify-center sm:justify-normal">
           <AiOutlinePlusCircle size={30} color="current" />
           <span className="sm:flex hidden">NEW POST</span>
         </li>
         </Link>
         <Link to={"/userId/profile"}>
-          <li className="flex gap-5 items-center">
+          <li className="flex gap-5 items-center justify-center sm:justify-normal">
             <CgProfile size={30} color="current" />
             <span className="sm:flex hidden">PROFILE</span>
           </li>
