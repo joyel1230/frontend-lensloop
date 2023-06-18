@@ -25,3 +25,46 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   background-color: #000;
 }
+
+@keyframes heartFill {
+  0% {
+    transform: scale(0);
+    transform-origin: center;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: center;
+  }
+}
+
+.heart-animation {
+  display: inline-block;
+  animation: heartFill 0.3s ease-in-out forwards;
+}
+
+
+/* 
+input neumorphism
+*/
+
+.neumorphic-input {
+  width: 190px;
+  height: 28px;
+  border: none;
+  background: #e0e5ec;
+  box-shadow: 5px 5px 10px #b3bcc7, -5px -5px 10px #fff;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Neumorphic Input Field Hover Styles */
+.neumorphic-input:hover {
+  box-shadow: 3px 3px 6px #b3bcc7, -3px -3px 6px #fff;
+}
+
+/* Neumorphic Input Field Focus Styles */
+.neumorphic-input:focus {
+  box-shadow: 2px 2px 4px #b3bcc7, -2px -2px 4px #fff;
+}

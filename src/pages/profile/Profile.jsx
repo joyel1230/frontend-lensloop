@@ -6,6 +6,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const Profile = () => {
   const { username } = useParams();
+  
   return (
     <div className="flex w-full flex-col justify-between gap-10">
       <div className="sm:flex w-full sm:justify-center mx-auto flex-none">

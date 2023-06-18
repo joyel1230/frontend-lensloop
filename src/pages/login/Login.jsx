@@ -1,22 +1,48 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/micros/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginValidate } from "../../hooks/loginValidate";
+import AuthMiddleWare from "../../services/authMiddleWare";
+import { api } from "../../services/api";
+import { userUrls } from "../../const/routesPath";
+import { setReduxUser } from "../../utils/reduxSlices/user";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     emailOrUsername: "",
     password: "",
   });
   const [error, setError] = useState(null);
+  const obj = AuthMiddleWare();
+  useEffect(() => {
+    if (obj.user) {
+      navigate("/");
+    }
+  }, [navigate, obj, obj.user]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const status = useLoginValidate(credentials, setError);
     if (!status) {
-      console.log(credentials);
+      try {
+        const response = await api.post(userUrls.usersLogin, { credentials });
+        if (response?.status === 200) {
+          localStorage.setItem("UserAuth", response.data.userToken);
+          dispatch(setReduxUser());
+          window.location.reload('/')
+          console.log("login successful");
+        } else {
+          setError(response.data?.error?.msg);
+        }
+      } catch (error) {
+        console.log(error);
+        setError(error?.response?.data?.error?.msg);
+      }
     }
   };
 
@@ -32,7 +58,7 @@ const Login = () => {
             <input
               type="text"
               placeholder=""
-              className="h-8 border-b-1 border-black text-black p-1 rounded-lg focus:outline-none "
+              className="neumorphic-input"
               onChange={(e) =>
                 setCredentials({
                   ...credentials,
@@ -48,7 +74,7 @@ const Login = () => {
             <input
               type="password"
               placeholder=""
-              className="h-8 border-b-1 border-black p-1 text-black rounded-lg focus:outline-none mb-2"
+              className="neumorphic-input mb-3"
               onChange={(e) =>
                 setCredentials({
                   ...credentials,

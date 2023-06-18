@@ -1,5 +1,6 @@
 export const useRegisterValidate = (credentials, setError) => {
   let returnbool = false;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   for (let key in credentials) {
     if (!credentials[key]) {
       console.log(credentials[key]);
@@ -16,9 +17,21 @@ export const useRegisterValidate = (credentials, setError) => {
         returnbool = true;
         break;
       }
-    } 
+    } else if (key === "email") {
+      if (!emailRegex.test(credentials[key])) {
+        setError(`${key} not valid.`);
+        returnbool = true;
+        break;
+      }
+    } else if (key === "username") {
+      if (credentials[key].includes("@")) {
+        setError(`${key} can't contain '@'`);
+        returnbool = true;
+        break;
+      }
+    }
   }
   if (returnbool) return "validate error";
-  setError(null)
+  setError(null);
   return null;
 };

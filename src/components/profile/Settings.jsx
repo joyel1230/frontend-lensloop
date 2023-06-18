@@ -1,28 +1,67 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { changeTheme } from "../../utils/reduxSlices/theme";
+import { removeReduxUser } from "../../utils/reduxSlices/user";
 
 const Settings = () => {
   let username = "joyel";
-  const dispatch=useDispatch()
+  const [checked, setChecked] = useState(false);
+  const naviagte = useNavigate();
+  const dispatch = useDispatch();
+  const themeSwitch = useSelector((store) => store?.theme?.currentTheme);
+  useEffect(() => {
+    if (themeSwitch === "light") {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+  }, [themeSwitch]);
+  const handleSwitch = () => {
+    if (themeSwitch !== "light") {
+      console.log("lightttt");
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+  };
+  const handleLogout = () => {
+    dispatch(removeReduxUser());
+    naviagte("../login");
+  };
   return (
-    <div className="flex flex-col  w-34 border border-black rounded absolute bg-slate-400 top-8 right-0">
-      <div className="h-1/3 border-b border-black text-center cursor-pointer font-bold font-sans select-none" onClick={()=>{dispatch(changeTheme())}} >
-       <span className="text-white">Light O</span>
-       <span className="text-black">R Dark</span> 
+    <div className="flex flex-col  w-full border border-current rounded mt-2 select-none">
+      <div className=" border-b border-current text-center relative">
+        Switch to light
+        <input
+          className="ml-3 h-[0.845rem] w-6 appearance-none rounded-[0.4375rem] bg-current before:pointer-events-none 
+          before:absolute before:h-3.5 before:w-3.5 before:rounded-full after:absolute after:z-[2] after:-mt-[-0.0625rem] 
+          after:h-3 after:w-3 after:-ml-[-1px] after:rounded-full after:bg-gray-500  after:transition-[background-color_0.2s,transform_0.2s] 
+          checked:after:absolute checked:after:z-[2] checked:after:-mt-[-0.0625rem] checked:after:ml-[0.65rem] checked:after:h-3 
+          checked:after:w-3 checked:after:rounded-full checked:after:border-none  
+          checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer  "
+          type="checkbox"
+          role="switch"
+          checked={checked}
+          onChange={()=>handleSwitch()}
+          onClick={() => {
+            dispatch(changeTheme());
+            handleSwitch();
+          }}
+        />
       </div>
       <Link to={`/${username}/edit-profile`}>
-        <div className="h-1/3 border-b border-black text-center font-bold font-sans">
-          Edit Profile
-        </div>
+        <div className=" border-b border-current text-center">Edit Profile</div>
       </Link>
       <Link to={`/${username}/change-password`}>
-        <div className="h-1/3 border-b border-black text-center font-bold font-sans">
+        <div className=" border-b border-current text-center">
           Change Password
         </div>
       </Link>
-      <div className="h-1/3 text-center text-red-500 cursor-pointer font-bold ">
+      <div
+        className=" text-center text-red-500 cursor-pointer font-bold"
+        onClick={() => handleLogout()}
+      >
         Logout
       </div>
     </div>

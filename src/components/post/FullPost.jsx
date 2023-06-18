@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ProfilePic from "../profile/ProfilePic";
 import UserName from "../profile/UserName";
 import Post from "./Post";
@@ -8,7 +8,9 @@ import Share from "./reactions/Share";
 import Save from "./reactions/Save";
 
 const FullPost = (props) => {
-  const { userId } = props;
+  let { userId,width } = props;
+  if(!width)width="400";
+  const [liked, setLiked] = useState(false);
   return (
     <div className="card">
       <div className="mb-2 ml-4 flex gap-5 items-center">
@@ -18,11 +20,17 @@ const FullPost = (props) => {
         />
         <UserName username={userId} />
       </div>
-      <Post w="400" />
+      <span onDoubleClick={() => setLiked(true)} className="cursor-pointer">
+        <Post w={width} />
+      </span>
       <div className="mt-2 flex justify-between mx-4">
-        <div className="flex justify-between gap-3">
-          <Like />
-          <Comment />
+        <div className="flex justify-between gap-3 relative">
+          <span onClick={() => setLiked(!liked)} className="absolute">
+            <Like liked={liked} />
+          </span>
+          <span className="ms-10">
+            <Comment />
+          </span>
           <Share />
         </div>
         <div>
