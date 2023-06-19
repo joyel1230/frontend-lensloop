@@ -5,10 +5,10 @@ import Button from "../../components/micros/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginValidate } from "../../hooks/loginValidate";
 import AuthMiddleWare from "../../services/authMiddleWare";
-import { api } from "../../services/api";
 import { userUrls } from "../../const/routesPath";
 import { setReduxUser } from "../../utils/reduxSlices/user";
 import { useDispatch } from "react-redux";
+import { apiCall } from "../../services/apiCalls";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -30,11 +30,12 @@ const Login = () => {
     const status = useLoginValidate(credentials, setError);
     if (!status) {
       try {
-        const response = await api.post(userUrls.usersLogin, { credentials });
+        const data = { credentials };
+        const response = await apiCall("post", userUrls.usersLogin, data);
         if (response?.status === 200) {
           localStorage.setItem("UserAuth", response.data.userToken);
           dispatch(setReduxUser());
-          window.location.reload('/')
+          window.location.reload("/");
           console.log("login successful");
         } else {
           setError(response.data?.error?.msg);
@@ -51,7 +52,7 @@ const Login = () => {
       <div className="relative">
         <img src="./images/login-bg-1.png" width={300} alt="" />
         <form action="">
-          <div className="absolute top-44 flex flex-col gap-0 left-14">
+          <div className="absolute top-[11.5rem] flex flex-col gap-0 left-14">
             <label htmlFor="" className="text-black">
               Email / Username
             </label>
@@ -85,16 +86,23 @@ const Login = () => {
               required
             />
             <span className="text-center mb-2 text-sm text-gray-600">
-              forgot password
+              <Link to={"../forgot"}>forgot password</Link>
             </span>
-            <button type="submit" onClick={(e) => handleSubmit(e)}>
-              <Button title="Login" clr={"bg-black text-white"} />
+            <button
+              type="submit"
+              className="w-full flex justify-center"
+              onClick={(e) => handleSubmit(e)}
+            >
+              <Button
+                title="Login"
+                clr={"text-black bg-white border-white w-fit"}
+              />
             </button>
             <div className="text-center">
               <span className="text-gray-500 text-sm">OR</span>
               <br />
               <Link to={"/register"} className="text-black">
-                <Button title="Register" />
+                Create new account
               </Link>
             </div>
           </div>

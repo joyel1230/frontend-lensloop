@@ -4,23 +4,21 @@ import UserName from "./UserName";
 import { Link } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import Settings from "./Settings";
-import { useSelector } from "react-redux";
-import jwt_decode from "jwt-decode";
+import { GetUsernameFromRedux } from "../../utils/userInRedux";
 
 const ProfileTopDiv = () => {
-  const userToken = useSelector((state) => state?.user?.userData);
-  let user;
-  if (userToken) {
-    user = jwt_decode(userToken);
+  const userDetails = GetUsernameFromRedux()
+  const username = userDetails?.username;
+  if (!userDetails.profilePic) {
+    userDetails.profilePic='/images/user.png'
   }
-  const username = user?.username;
   const [settingsToggle, setSettingsToggle] = useState(false);
   return (
     <>
       <div className="flex justify-center">
         <ProfilePic
           width="100"
-          dpUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL-L1UhpS9glJRsLpcu8L2COL88RL9e_JIZw&usqp=CAU"
+          dpUrl={userDetails?.profilePic}
         />
       </div>
       <div className="flex flex-col justify-between sm:ml-5 mt-5 sm:mt-0">

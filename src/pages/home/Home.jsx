@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import FullPost from "../../components/post/FullPost";
-import { useSelector } from "react-redux";
-import jwt_decode from "jwt-decode";
+import { GetUsernameFromRedux } from "../../utils/userInRedux";
+
 
 const Home = () => {
-  // const { username } = useParams();
-  const userToken = useSelector((state) => state?.user?.userData);
-  let user;
-  if (userToken) {
-    user = jwt_decode(userToken);
-  }
-  const username = user?.username;
+  const userDetails = GetUsernameFromRedux()
+  const username = userDetails?.username;
+  const sectionRef = useRef(null);
+  useEffect(() => {
+    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [])
+
   return (
-    <div className="container">
+    <div className="container" ref={sectionRef}>
       <div className="cards flex flex-wrap gap-10 justify-center">
         {Array(10)
           .fill()

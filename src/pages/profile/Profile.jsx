@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import FullPost from "../../components/post/FullPost";
 import ProfileTopDiv from "../../components/profile/ProfileTopDiv";
@@ -6,9 +6,13 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const Profile = () => {
   const { username } = useParams();
+  const sectionRef = useRef(null);
+  useEffect(() => {
+    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [])
   
   return (
-    <div className="flex w-full flex-col justify-between gap-10">
+    <div className="flex w-full flex-col justify-between gap-10" ref={sectionRef}>
       <div className="sm:flex w-full sm:justify-center mx-auto flex-none">
         <ProfileTopDiv username={username} />
       </div>

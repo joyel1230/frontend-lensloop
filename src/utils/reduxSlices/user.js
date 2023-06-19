@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { api } from "../../services/api";
 import { authUrls } from "../../const/routesPath";
+import { apiCall } from "../../services/apiCalls";
 let validUser, token;
 try {
   token = localStorage.getItem("UserAuth");
   if (token) {
-    const headers = {
-      Authorization: `${token}`
+    const data = {
+      headers: {
+        Authorization: `${token}`,
+      },
     };
-    const response = await api.get(authUrls.user, { headers });
+    const response = await apiCall("get",authUrls.user, data);
     validUser = response?.data?.valid;
   } else {
     validUser = false;

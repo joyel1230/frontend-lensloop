@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { changeTheme } from "../../utils/reduxSlices/theme";
 import { removeReduxUser } from "../../utils/reduxSlices/user";
+import { GetUsernameFromRedux } from "../../utils/userInRedux";
 
 const Settings = () => {
-  let username = "joyel";
   const [checked, setChecked] = useState(false);
   const naviagte = useNavigate();
   const dispatch = useDispatch();
   const themeSwitch = useSelector((store) => store?.theme?.currentTheme);
+  const userDetails=GetUsernameFromRedux()
+  const username = userDetails?.username;
   useEffect(() => {
     if (themeSwitch === "light") {
       setChecked(true);

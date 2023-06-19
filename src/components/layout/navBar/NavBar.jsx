@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AiOutlineHome,
   AiOutlineSearch,
@@ -10,15 +10,11 @@ import { MdOutlineExplore } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import Logo from "../../micros/Logo";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import jwt_decode from "jwt-decode";
+import { GetUsernameFromRedux } from "../../../utils/userInRedux";
 
 const NavBar = () => {
-  const userStore = useSelector((state) => state?.user);
-  let userDetails;
-  if (userStore.userData) {
-    userDetails = jwt_decode(userStore?.userData);
-  }
+  const userDetails = GetUsernameFromRedux();
+  const [activeItem, setActiveItem] = useState("home");
   const username = userDetails?.username;
   return (
     <div className="h-full w-full border-r-2 border-current">
@@ -32,45 +28,108 @@ const NavBar = () => {
           </li>
         </Link>
         <Link to={`/`}>
-          <li className="flex gap-5 items-center justify-center sm:justify-normal">
+          <li
+            className="flex gap-5 items-center justify-center sm:justify-normal"
+            onClick={() => setActiveItem("home")}
+          >
             <AiOutlineHome size={30} color="current" />
-            <span className="sm:flex hidden">HOME</span>
+            <span
+              className={`sm:flex hidden ${
+                activeItem === "home" ? "text-lg" : ""
+              }`}
+            >
+              HOME
+            </span>
           </li>
         </Link>
         <Link to={""}>
-          <li className="flex gap-5 items-center justify-center sm:justify-normal">
+          <li
+            className="flex gap-5 items-center justify-center sm:justify-normal"
+            onClick={() => setActiveItem("search")}
+          >
             <AiOutlineSearch size={30} color="current" />
-            <span className="sm:flex hidden">SEARCH</span>
+            <span
+              className={`sm:flex hidden ${
+                activeItem === "search" ? "text-lg" : ""
+              }`}
+            >
+              SEARCH
+            </span>
           </li>
         </Link>
         <Link to={""}>
-          <li className="flex gap-5 items-center justify-center sm:justify-normal">
+          <li
+            className="flex gap-5 items-center justify-center sm:justify-normal"
+            onClick={() => setActiveItem("explore")}
+          >
             <MdOutlineExplore size={30} color="current" />
-            <span className="sm:flex hidden">EXPLORE</span>
+            <span
+              className={`sm:flex hidden ${
+                activeItem === "explore" ? "text-lg" : ""
+              }`}
+            >
+              EXPLORE
+            </span>
           </li>
         </Link>
         <Link to={""}>
-          <li className="flex gap-5 items-center justify-center sm:justify-normal">
+          <li
+            className="flex gap-5 items-center justify-center sm:justify-normal"
+            onClick={() => setActiveItem("message")}
+          >
             <AiOutlineMessage size={30} color="current" />
-            <span className="sm:flex hidden">MESSAGE</span>
+            <span
+              className={`sm:flex hidden ${
+                activeItem === "message" ? "text-lg" : ""
+              }`}
+            >
+              MESSAGE
+            </span>
           </li>
         </Link>
         <Link to={""}>
-          <li className="flex gap-5 items-center justify-center sm:justify-normal">
+          <li
+            className="flex gap-5 items-center justify-center sm:justify-normal"
+            onClick={() => setActiveItem("notification")}
+          >
             <AiOutlineHeart size={30} color="current" />
-            <span className="sm:flex hidden">NOTIFICATION</span>
+            <span
+              className={`sm:flex hidden ${
+                activeItem === "notification" ? "text-lg" : ""
+              }`}
+            >
+              NOTIFICATION
+            </span>
           </li>
         </Link>
         <Link to={""}>
-          <li className="flex gap-5 items-center justify-center sm:justify-normal">
+          <li
+            className="flex gap-5 items-center justify-center sm:justify-normal"
+            onClick={() => setActiveItem("newpost")}
+          >
             <AiOutlinePlusCircle size={30} color="current" />
-            <span className="sm:flex hidden">NEW POST</span>
+            <span
+              className={`sm:flex hidden ${
+                activeItem === "newpost" ? "text-lg" : ""
+              }`}
+            >
+              NEW POST
+            </span>
           </li>
         </Link>
         <Link to={`/${username}`}>
-          <li className="flex gap-5 items-center justify-center sm:justify-normal">
+          <li
+            className="flex gap-5 items-center justify-center sm:justify-normal"
+            onClick={() => setActiveItem("profile")}
+          >
             <CgProfile size={30} color="current" />
-            <span className="sm:flex hidden">PROFILE</span>
+            <span
+              className={`sm:flex hidden ${
+                activeItem === "profile" ? "text-lg" : ""
+              }`}
+            >
+              PROFILE
+            </span>
           </li>
         </Link>
       </ul>
