@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { RouterProvider } from "react-router-dom";
-import appRouter from "./services/router";
+import appRouter from "./services/routes";
 import { Provider } from "react-redux";
 import store from "./utils/store";
 

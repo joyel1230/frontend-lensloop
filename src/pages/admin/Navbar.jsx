@@ -1,25 +1,20 @@
 import React, { useState } from "react";
-import {
-  AiOutlineHome,
-  AiOutlineSearch,
-  AiOutlineMessage,
-  AiOutlineHeart,
-  AiOutlinePlusCircle,
-} from "react-icons/ai";
-import { MdOutlineExplore } from "react-icons/md";
-import { CgProfile } from "react-icons/cg";
-import Logo from "../../micros/Logo";
+// import { AiOutlineHome } from "react-icons/ai";
+import { FiUsers, FiLogOut } from "react-icons/fi";
+import { BsCashStack } from "react-icons/bs";
+import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
+import Logo from "../../components/micros/Logo";
 import { Link } from "react-router-dom";
-import { GetUsernameFromRedux } from "../../../utils/userInRedux";
+import { removeAdmin } from "../../utils/reduxSlices/admin";
+import { useDispatch } from "react-redux";
 
-const NavBar = () => {
-  const userDetails = GetUsernameFromRedux();
+const AdminNavBar = () => {
+  const dispatch = useDispatch();
   const [activeItem, setActiveItem] = useState("home");
-  const username = userDetails?.username;
   return (
     <div className="h-full w-full border-r-2 border-current">
       <ul className="h-full flex flex-col justify-between p-3 text-sm font-bold xs:text-center max-h-[90%]">
-        <Link to={"/"}>
+        <Link to={"/admin"}>
           <li className="text-3xl flex justify-center sm:flex-none sm:justify-normal">
             <span className="sm:hidden">
               <Logo />
@@ -27,108 +22,79 @@ const NavBar = () => {
             <span className="sm:flex hidden">ℒ𝑒𝓃𝓈ℒ𝑜𝑜𝓅</span>
           </li>
         </Link>
-        <Link to={`/`}>
+        <span className="sm:text-xl text-md font-sans">ADMIN</span>
+        <Link to={`/admin`}>
           <li
             className="flex gap-5 items-center justify-center sm:justify-normal"
             onClick={() => setActiveItem("home")}
           >
-            <AiOutlineHome size={30} color="current" />
+            <FiUsers size={30} color="current" />
             <span
               className={`sm:flex hidden ${
                 activeItem === "home" ? "text-lg" : ""
               }`}
             >
-              HOME
+              USERS
             </span>
           </li>
         </Link>
-        <Link to={""}>
+        {/* <Link to={""}>
           <li
             className="flex gap-5 items-center justify-center sm:justify-normal"
             onClick={() => setActiveItem("search")}
           >
-            <AiOutlineSearch size={30} color="current" />
+            <FiUsers size={30} color="current" />
             <span
               className={`sm:flex hidden ${
                 activeItem === "search" ? "text-lg" : ""
               }`}
             >
-              SEARCH
+              USERS
             </span>
           </li>
-        </Link>
-        <Link to={""}>
+        </Link> */}
+        <Link to={"/admin/posts"}>
           <li
             className="flex gap-5 items-center justify-center sm:justify-normal"
             onClick={() => setActiveItem("explore")}
           >
-            <MdOutlineExplore size={30} color="current" />
+            <MdOutlinePhotoSizeSelectActual size={30} color="current" />
             <span
               className={`sm:flex hidden ${
                 activeItem === "explore" ? "text-lg" : ""
               }`}
             >
-              EXPLORE
+              POSTS
             </span>
           </li>
         </Link>
-        <Link to={""}>
+        <Link to={"/admin/ads"}>
           <li
             className="flex gap-5 items-center justify-center sm:justify-normal"
             onClick={() => setActiveItem("message")}
           >
-            <AiOutlineMessage size={30} color="current" />
+            <BsCashStack size={30} color="current" />
             <span
               className={`sm:flex hidden ${
                 activeItem === "message" ? "text-lg" : ""
               }`}
             >
-              MESSAGE
+              ADS
             </span>
           </li>
         </Link>
-        <Link to={""}>
+        <Link to={""} onClick={() => dispatch(removeAdmin())}>
           <li
             className="flex gap-5 items-center justify-center sm:justify-normal"
-            onClick={() => setActiveItem("notification")}
+            onClick={() => setActiveItem("message1")}
           >
-            <AiOutlineHeart size={30} color="current" />
+            <FiLogOut size={30} color="current" />
             <span
               className={`sm:flex hidden ${
-                activeItem === "notification" ? "text-lg" : ""
+                activeItem === "message1" ? "text-lg" : ""
               }`}
             >
-              NOTIFICATION
-            </span>
-          </li>
-        </Link>
-        <Link to={"/new-post"}>
-          <li
-            className="flex gap-5 items-center justify-center sm:justify-normal"
-            onClick={() => setActiveItem("newpost")}
-          >
-            <AiOutlinePlusCircle size={30} color="current" />
-            <span
-              className={`sm:flex hidden ${
-                activeItem === "newpost" ? "text-lg" : ""
-              }`}
-            >
-              NEW POST
-            </span>
-          </li>
-        </Link>
-        <Link to={`/${username}`}>
-          <li
-            className="flex gap-5 items-center justify-center sm:justify-normal"
-            onClick={() => setActiveItem("profile")}
-          >
-            <CgProfile size={30} color="current" />
-            <span
-              className={`sm:flex hidden ${
-                activeItem === "profile" ? "text-lg" : ""
-              }`}
-            >
-              PROFILE
+              LOGOUT
             </span>
           </li>
         </Link>
@@ -137,4 +103,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default AdminNavBar;

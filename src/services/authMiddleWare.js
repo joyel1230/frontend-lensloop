@@ -10,7 +10,21 @@ const AuthMiddleWare = () => {
     return { user, userDetails };
   } else {
     user = false;
-    return {user};
+    return { user };
+  }
+};
+
+export const AdminAuthMiddleWare = () => {
+  const adminStore = useSelector((state) => state?.admin);
+  if (adminStore.adminEmail) {
+    const adminDetails = jwt_decode(adminStore?.adminEmail);
+    if (adminDetails === process.env.REACT_APP_ADMIN_EMAIL) {
+      return { admin: true, adminDetails };
+    } else {
+      return { admin: false };
+    }
+  } else {
+    return { admin: false };
   }
 };
 

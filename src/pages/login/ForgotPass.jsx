@@ -40,21 +40,21 @@ const ForgotPass = () => {
     }
   };
   return (
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 relative">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
       {loading && <Loading />}
       {show && <Modal hide={setShow} title={title} desc={desc} path="/login" />}
-      <div class="max-w-md w-full bg-white p-8 shadow-lg rounded-3xl">
-        <h2 class="text-2xl font-bold mb-8">Forgot Password</h2>
+      <div className="max-w-md w-full bg-white p-8 shadow-lg rounded-3xl">
+        <h2 className="text-2xl font-bold mb-8">Forgot Password</h2>
         <form>
-          <div class="mb-4">
+          <div className="mb-4">
             <label
-              class="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-2"
               for="Email"
             >
               Email
             </label>
             <input
-              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
               id="email"
               type="email"
               placeholder="Enter your Email"
@@ -65,15 +65,15 @@ const ForgotPass = () => {
               }}
             />
           </div>
-          <div class="mb-4">
+          <div className="mb-4">
             <label
-              class="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-2"
               for="newPassword"
             >
               New Password
             </label>
             <input
-              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
               id="newPassword"
               type="password"
               placeholder="Enter your new password"
@@ -85,15 +85,15 @@ const ForgotPass = () => {
               }}
             />
           </div>
-          <div class="mb-4">
+          <div className="mb-4">
             <label
-              class="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-2"
               for="confirmPassword"
             >
               Confirm Password
             </label>
             <input
-              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
               id="confirmPassword"
               type="password"
               placeholder="Confirm your new password"
@@ -105,12 +105,12 @@ const ForgotPass = () => {
               }}
             />
           </div>
-          <div class="flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <Link to={'/login'}>
               <Back />
             </Link>
             <button
-              class="bg-black text-white px-4 py-3 rounded-lg hover:bg-green-900 transition-colors duration-300"
+              className="bg-black text-white px-4 py-3 rounded-lg hover:bg-green-900 transition-colors duration-300"
               type="submit"
               onClick={(e) => handleSubmit(e)}
             >

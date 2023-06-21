@@ -9,9 +9,6 @@ import { GetUsernameFromRedux } from "../../utils/userInRedux";
 const ProfileTopDiv = () => {
   const userDetails = GetUsernameFromRedux()
   const username = userDetails?.username;
-  if (!userDetails.profilePic) {
-    userDetails.profilePic='/images/user.png'
-  }
   const [settingsToggle, setSettingsToggle] = useState(false);
   return (
     <>
@@ -45,7 +42,7 @@ const ProfileTopDiv = () => {
 
         {settingsToggle && (
           <span className="pt-10">
-            <Settings />
+            <Settings fun={setSettingsToggle}/>
           </span>
         )}
       </div>

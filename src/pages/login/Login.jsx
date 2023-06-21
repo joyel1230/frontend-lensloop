@@ -9,6 +9,7 @@ import { userUrls } from "../../const/routesPath";
 import { setReduxUser } from "../../utils/reduxSlices/user";
 import { useDispatch } from "react-redux";
 import { apiCall } from "../../services/apiCalls";
+import { userAuth } from "../../const/localstorage";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const Login = () => {
         const data = { credentials };
         const response = await apiCall("post", userUrls.usersLogin, data);
         if (response?.status === 200) {
-          localStorage.setItem("UserAuth", response.data.userToken);
+          localStorage.setItem(userAuth, response.data.userToken);
           dispatch(setReduxUser());
           window.location.reload("/");
           console.log("login successful");

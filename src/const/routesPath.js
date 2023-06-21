@@ -6,5 +6,11 @@ export const userUrls = {
 };
 
 export const authUrls = {
-  user: "/auth/user",
+  authUser: "/auth/user",
+};
+
+export const adminUrls = {
+  adminLogin: "/admin/login",
+  adminUsers: "/admin/users",
+  adminUsersStatus: "/admin/users/status"
 };

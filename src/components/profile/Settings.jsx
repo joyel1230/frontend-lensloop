@@ -5,7 +5,7 @@ import { changeTheme } from "../../utils/reduxSlices/theme";
 import { removeReduxUser } from "../../utils/reduxSlices/user";
 import { GetUsernameFromRedux } from "../../utils/userInRedux";
 
-const Settings = () => {
+const Settings = ({fun}) => {
   const [checked, setChecked] = useState(false);
   const naviagte = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Settings = () => {
     naviagte("../login");
   };
   return (
-    <div className="flex flex-col  w-full border border-current rounded mt-2 select-none">
+    <div className="flex flex-col  w-full border border-current rounded mt-2 select-none" onClick={()=>fun(false)}>
       <div className=" border-b border-current text-center relative">
         Switch to light
         <input

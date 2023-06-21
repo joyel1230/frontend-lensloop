@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authUrls } from "../../const/routesPath";
 import { apiCall } from "../../services/apiCalls";
+import { userAuth } from "../../const/localstorage";
 let validUser, token;
 try {
-  token = localStorage.getItem("UserAuth");
+  token = localStorage.getItem(userAuth);
   if (token) {
     const data = {
       headers: {
         Authorization: `${token}`,
       },
     };
-    const response = await apiCall("get",authUrls.user, data);
+    const response = await apiCall("get",authUrls.authUser, data);
     validUser = response?.data?.valid;
   } else {
     validUser = false;
@@ -27,11 +28,11 @@ const userSlice = createSlice({
   },
   reducers: {
     setReduxUser: (state, action) => {
-      state.userData = localStorage.getItem("UserAuth");
+      state.userData = localStorage.getItem(userAuth);
     },
     removeReduxUser: (state, action) => {
       state.userData = null;
-      localStorage.clear();
+      localStorage.removeItem(userAuth);
     },
   },
 });

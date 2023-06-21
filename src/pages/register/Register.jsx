@@ -53,14 +53,17 @@ const Register = () => {
       if (!status && validUsername) {
         setLoading(true);
         const profilePic = googleAuth?.picture;
-        const cred = { ...credentials, profilePic };
+        let cred;
+        if (profilePic === undefined) {
+          cred = { ...credentials };
+        } else {
+          cred = { ...credentials, profilePic };
+        }
         const data = { cred };
         const response = await apiCall("post", userUrls.usersRegister, data);
         setLoading(false);
         if (response.data?.status === 200) {
           setShow(true);
-          // localStorage.setItem("UserAuth", response.data.userToken);
-          // dispatch(setReduxUser());
           console.log("new user registered but not verified");
         }
       } else if (!status && !validUsername) {
@@ -73,7 +76,8 @@ const Register = () => {
   };
 
   const handleUsername = async (e) => {
-    const username = e.target.value.trim();
+    let username = e.target.value.trim();
+    username = username.toLowerCase();
     const data = {
       params: { username },
     };
