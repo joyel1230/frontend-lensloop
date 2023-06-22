@@ -37,7 +37,6 @@ const Login = () => {
           localStorage.setItem(userAuth, response.data.userToken);
           dispatch(setReduxUser());
           window.location.reload("/");
-          console.log("login successful");
         } else {
           setError(response.data?.error?.msg);
         }

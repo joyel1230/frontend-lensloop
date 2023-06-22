@@ -21,7 +21,6 @@ const Settings = ({fun}) => {
   }, [themeSwitch]);
   const handleSwitch = () => {
     if (themeSwitch !== "light") {
-      console.log("lightttt");
       setChecked(true);
     } else {
       setChecked(false);
@@ -32,8 +31,8 @@ const Settings = ({fun}) => {
     naviagte("../login");
   };
   return (
-    <div className="flex flex-col  w-full border border-current rounded mt-2 select-none" onClick={()=>fun(false)}>
-      <div className=" border-b border-current text-center relative">
+    <div className="flex flex-col gap-2  w-[75%] border border-current rounded-xl mt-2 select-none " onClick={()=>fun(false)}>
+      <div className=" border-b border-current text-center relative py-3">
         Switch to light
         <input
           className="ml-3 h-[0.845rem] w-6 appearance-none rounded-[0.4375rem] bg-current before:pointer-events-none 

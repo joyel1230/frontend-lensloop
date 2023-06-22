@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { Navigate, Outlet, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import ProfileTopDiv from "../../components/profile/ProfileTopDiv";
 import { GetUsernameFromRedux } from "../../utils/userInRedux";
+import ProfilePostSection from "../../components/profile/ProfilePostSection";
 
 const Profile = () => {
   const { username } = useParams();
@@ -18,7 +19,7 @@ const Profile = () => {
       <div className="sm:flex w-full sm:justify-center mx-auto flex-none">
         <ProfileTopDiv username={username} />
       </div>
-      <Outlet username={username}/>
+      <ProfilePostSection username={username}/>
     </div>
   );
 };

@@ -32,7 +32,6 @@ const Register = () => {
   const [validUsername, setValidUsername] = useState(null);
 
   useEffect(() => {
-    console.log(googleAuth);
     if (googleAuth) {
       usernameValue.current.value = googleAuth?.given_name;
     }
@@ -193,7 +192,6 @@ const Register = () => {
                       width="190"
                       onSuccess={(credentialResponse) => {
                         const data = jwt_decode(credentialResponse.credential);
-                        console.log(data);
                         setGoogleAuth(data);
                         setCredentials({
                           ...credentials,

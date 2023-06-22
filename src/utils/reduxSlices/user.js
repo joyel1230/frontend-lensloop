@@ -34,9 +34,14 @@ const userSlice = createSlice({
       state.userData = null;
       localStorage.removeItem(userAuth);
     },
+    setEditedUser: (state, action) => {
+      localStorage.removeItem(userAuth);
+      localStorage.setItem(userAuth,action.payload?.token)
+      state.userData = action.payload?.token;
+    },
   },
 });
 
-export const { setReduxUser, removeReduxUser } = userSlice.actions;
+export const { setReduxUser, removeReduxUser, setEditedUser } = userSlice.actions;
 
 export default userSlice.reducer;

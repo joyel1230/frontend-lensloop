@@ -11,9 +11,9 @@ import ForgotPass from "../pages/login/ForgotPass";
 // import AdminHome from "../pages/admin/AdminHome";
 import { adminRoutes } from "./admin/routes";
 import NewPost from "../pages/post/NewPost";
-import ProfilePostSection from "../components/profile/ProfilePostSection";
-import EditProfile from "../components/profile/EditProfile";
-import ChangePass from "../components/profile/ChangePass";
+import EditProfile from "../components/profile/options/EditProfile";
+import ChangePass from "../components/profile/options/ChangePass";
+import SinglePost from "../components/post/SinglePost";
 
 const appRouter = createBrowserRouter([
   {
@@ -28,24 +28,22 @@ const appRouter = createBrowserRouter([
       {
         path: "/:username",
         element: <Profile />,
-        children:[
-          {
-            path: "/:username",
-            element: <ProfilePostSection />,
-          },
-          {
-            path: "/:username/edit-profile",
-            element: <EditProfile />,
-          },
-          {
-            path: "/:username/change-password",
-            element: <ChangePass />,
-          },
-        ]
+      },
+      {
+        path: "/:username/edit-profile",
+        element: <EditProfile />,
+      },
+      {
+        path: "/:username/change-password",
+        element: <ChangePass />,
       },
       {
         path: "/new-post",
         element: <NewPost />,
+      },
+      {
+        path: "/posts/:id",
+        element: <SinglePost />,
       },
     ],
   },
@@ -62,7 +60,6 @@ const appRouter = createBrowserRouter([
     element: <ForgotPass />,
   },
 
-  
   // admin routes
   adminRoutes,
 ]);

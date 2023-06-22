@@ -26,6 +26,7 @@ const NewPost = () => {
           <img src={image} alt="" width={300} />
           <input
             type="file"
+            accept="image/jpeg, image/png"
             ref={imgInput}
             onChange={handleImage}
             className="cursor-pointer hidden"

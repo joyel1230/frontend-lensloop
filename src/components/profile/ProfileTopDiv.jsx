@@ -16,9 +16,10 @@ const ProfileTopDiv = () => {
         <ProfilePic
           width="100"
           dpUrl={userDetails?.profilePic}
+          online={false}
         />
       </div>
-      <div className="flex flex-col justify-between sm:ml-5 mt-5 sm:mt-0">
+      <div className="flex flex-col justify-between sm:ml-5 mt-5 sm:mt-0 select-none">
         <div>
           <div className="flex items-center justify-between">
             <UserName username={username} size="sm:text-3xl text-2xl" />

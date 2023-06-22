@@ -3,6 +3,8 @@ export const userUrls = {
   users: "/users",
   usersLogin: "/users/login",
   usersForgot: "/users/forgot",
+  usersEditProfile:'users/edit-profile',
+  usersChangePass:'users/change-pass'
 };
 
 export const authUrls = {

@@ -4,20 +4,20 @@ import { adminApiCall } from "../../services/admin/apiCalls";
 import { adminUrls } from "../../const/routesPath";
 import Loading from "../loading/Loading";
 import { BiRefresh } from "react-icons/bi";
+import ProfilePic from "../profile/ProfilePic";
 
 const Home = () => {
   const [users, setUsers] = useState(null);
   const [searchData, setSearchData] = useState([]);
   const [refresh, setRefresh] = useState(1);
   const [loading, setLoading] = useState(false);
-  const searchValue = useRef()
+  const searchValue = useRef();
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     adminApiCall("get", adminUrls.adminUsers).then((res) => {
-      setLoading(false)
+      setLoading(false);
       setUsers(res.data);
       setSearchData(res.data);
-      console.log(res.data);
     });
   }, [refresh]);
 
@@ -38,7 +38,6 @@ const Home = () => {
         `${adminUrls.adminUsersStatus}/${username}`,
         data
       );
-      console.log(response);
       if (response.status === 200) {
         setLoading(false);
         setSearchData((prevUsers) => {
@@ -75,7 +74,6 @@ const Home = () => {
         `${adminUrls.adminUsersStatus}/${username}`,
         data
       );
-      console.log(response);
       if (response.status === 200) {
         setLoading(false);
         setSearchData((prevUsers) => {
@@ -140,10 +138,15 @@ const Home = () => {
             {searchData.map((user) => (
               <tr key={user._id} className="bg-white text-center">
                 <td className="py-2 px-4 border-b flex justify-center">
-                  <img
+                  {/* <img
                     src={user.profilePic}
                     alt="Profile"
                     className="w-10 h-10 rounded-full"
+                  /> */}
+                  <ProfilePic
+                    width="40"
+                    dpUrl={user.profilePic}
+                    online={user?.online ? true : false}
                   />
                 </td>
                 <td className="py-2 px-4 border-b">{user.username}</td>
@@ -173,6 +176,7 @@ const Home = () => {
           </tbody>
         </table>
       </div>
+      {searchData.length === 0 && <span className="text-2xl"> No results</span>}
     </div>
   ) : (
     <div className="flex justify-center w-full">

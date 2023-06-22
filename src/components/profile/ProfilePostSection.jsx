@@ -1,12 +1,12 @@
-import React from 'react'
-import { AiOutlinePlusCircle } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
-import FullPost from '../post/FullPost'
+import React from "react";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import FullPost from "../post/FullPost";
 
-const ProfilePostSection = ({username}) => {
+const ProfilePostSection = ({ username }) => {
   return (
     <>
-        <div className="px-1 sm:w-[85%] sm:mx-auto">
+      <div className="px-1 sm:w-[85%] sm:mx-auto  select-none">
         <div className="flex justify-between my-2 text-lg sm:text-2xl border-b-2 border-t-2 border-current py-3">
           <div className="flex items-center gap-4">
             <h1 className="cursor-pointer">Posts</h1>
@@ -25,14 +25,14 @@ const ProfilePostSection = ({username}) => {
           </div>
         </div>
       </div>
-      <div className="cards flex flex-wrap gap-10 justify-center">
-        <FullPost userId={username} />
-        <FullPost userId={username} />
-        <FullPost userId={username} />
-        <FullPost userId={username} />
+      <div className="cards flex flex-wrap gap-10 justify-center select-none">
+        <FullPost userId={username} url='/posts/postId' online={false} />
+        <FullPost userId={username} url='/posts/postId' online={false} />
+        <FullPost userId={username} url='/posts/postId' online={false} />
+        <FullPost userId={username} url='/posts/postId' online={false} />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ProfilePostSection
+export default ProfilePostSection;

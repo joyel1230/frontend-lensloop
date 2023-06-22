@@ -3,7 +3,6 @@ export const useRegisterValidate = (credentials, setError) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   for (let key in credentials) {
     if (!credentials[key]) {
-      console.log(credentials[key]);
       setError(`${key} is Required`);
       returnbool = true;
       break;
