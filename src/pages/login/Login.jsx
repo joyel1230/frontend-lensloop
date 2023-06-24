@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 
 import React, { useEffect, useState } from "react";
 import Button from "../../components/micros/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { useLoginValidate } from "../../hooks/loginValidate";
+import { UseLoginValidate } from "../../hooks/loginValidate";
 import AuthMiddleWare from "../../services/authMiddleWare";
 import { userUrls } from "../../const/routesPath";
 import { setReduxUser } from "../../utils/reduxSlices/user";
@@ -28,7 +27,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const status = useLoginValidate(credentials, setError);
+    const status = UseLoginValidate(credentials, setError);
     if (!status) {
       try {
         const data = { credentials };
@@ -86,7 +85,7 @@ const Login = () => {
               required
             />
             <span className="text-center mb-2 text-sm text-gray-600">
-              <Link to={"../forgot"}>forgot password</Link>
+              <Link to={"../forgot"}>forgot password? & verify</Link>
             </span>
             <button
               type="submit"

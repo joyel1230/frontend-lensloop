@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../../components/micros/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { useRegisterValidate } from "../../hooks/registerValidate";
+import { UseRegisterValidate } from "../../hooks/registerValidate";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
@@ -42,13 +42,10 @@ const Register = () => {
     navigate("/");
   }
 
-  // const user = localStorage.getItem("google_user");
-  // console.log(JSON.parse(user).picture);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const status = useRegisterValidate(credentials, setError);
+      const status = UseRegisterValidate(credentials, setError);
       if (!status && validUsername) {
         setLoading(true);
         const profilePic = googleAuth?.picture;
@@ -101,7 +98,7 @@ const Register = () => {
   const desc = "Click the url in your email to verify...";
   return (
     <div className="relative">
-      {loading && <Loading />}
+      {loading && <Loading bg={"none"} />}
       {show && (
         <Modal
           hide={setShow}

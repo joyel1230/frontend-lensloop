@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FiUsers, FiLogOut } from "react-icons/fi";
 import { BsCashStack } from "react-icons/bs";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
-import Logo from "../../components/micros/Logo";
+import Logo from "../micros/Logo";
 import { Link } from "react-router-dom";
 import { removeAdmin } from "../../utils/reduxSlices/admin";
 import { useDispatch } from "react-redux";
@@ -88,9 +88,9 @@ const AdminNavBar = () => {
             className="flex gap-5 items-center justify-center sm:justify-normal"
             onClick={() => setActiveItem("message1")}
           >
-            <FiLogOut size={30} color="current" />
+            <FiLogOut size={30} color="red" />
             <span
-              className={`sm:flex hidden ${
+              className={`sm:flex hidden text-red-500 ${
                 activeItem === "message1" ? "text-lg" : ""
               }`}
             >

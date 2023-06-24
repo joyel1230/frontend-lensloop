@@ -1,4 +1,4 @@
-export const useRegisterValidate = (credentials, setError) => {
+export const UseRegisterValidate = (credentials, setError) => {
   let returnbool = false;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   for (let key in credentials) {

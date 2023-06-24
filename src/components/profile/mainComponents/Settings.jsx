@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { changeTheme } from "../../utils/reduxSlices/theme";
-import { removeReduxUser } from "../../utils/reduxSlices/user";
-import { GetUsernameFromRedux } from "../../utils/userInRedux";
+import { changeTheme } from "../../../utils/reduxSlices/theme";
+import { removeReduxUser } from "../../../utils/reduxSlices/user";
+import { GetUsernameFromRedux } from "../../../utils/userInRedux";
 
 const Settings = ({fun}) => {
   const [checked, setChecked] = useState(false);

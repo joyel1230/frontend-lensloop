@@ -8,6 +8,7 @@ import { userUrls } from "../../../const/routesPath";
 
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../../loading/Loading";
 
 const ChangePass = () => {
   const userDetails = GetUsernameFromRedux();
@@ -96,14 +97,13 @@ const ChangePass = () => {
             <span className="text-red-500 text-sm w-44">{error[1]}</span>
           </div>
         </div>
-        <div className="flex justify-end">
-          {error.length !== 0 ? (
-            <Button title="Update" clr="h-fit w-fit pointer-events-none" />
-          ) : (
+        <div className="flex justify-end mt-3">
+          {error.length !== 0 && (
+            <Loading bg={'none'}/>
+          )}
             <span onClick={handleSubmit}>
               <Button title="Update" clr="h-fit w-fit" />
             </span>
-          )}
         </div>
       </div>
     </>

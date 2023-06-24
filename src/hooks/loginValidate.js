@@ -1,4 +1,4 @@
-export const useLoginValidate = (credentials, setError) => {
+export const UseLoginValidate = (credentials, setError) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!credentials?.emailOrUsername) {

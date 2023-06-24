@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import FullPost from "../../components/post/FullPost";
-import { GetUsernameFromRedux } from "../../utils/userInRedux";
+// import FullPost from "../../components/post/FullPost";
+// import { GetUsernameFromRedux } from "../../utils/userInRedux";
 
 
 const Home = () => {
-  const userDetails = GetUsernameFromRedux()
-  const username = userDetails?.username;
+  // const userDetails = GetUsernameFromRedux()
+  // const username = userDetails?.username;
   const sectionRef = useRef(null);
   useEffect(() => {
     sectionRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div className="container" ref={sectionRef}>
       <div className="cards flex flex-wrap gap-10 justify-center">
-        {Array(10)
+        {/* {Array(10)
           .fill()
           .map((element, i) => {
             return (
@@ -22,7 +22,7 @@ const Home = () => {
                 <FullPost userId={username} width="600"/>
               </div>
             );
-          })}
+          })} */}
       </div>
     </div>
   );

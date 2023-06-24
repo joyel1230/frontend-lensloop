@@ -4,7 +4,7 @@ import UserName from "./UserName";
 import { Link } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import Settings from "./Settings";
-import { GetUsernameFromRedux } from "../../utils/userInRedux";
+import { GetUsernameFromRedux } from "../../../utils/userInRedux";
 
 const ProfileTopDiv = () => {
   const userDetails = GetUsernameFromRedux()

@@ -57,7 +57,7 @@ const NavBar = () => {
             </span>
           </li>
         </Link>
-        <Link to={""}>
+        <Link to={"/explore"}>
           <li
             className="flex gap-5 items-center justify-center sm:justify-normal"
             onClick={() => setActiveItem("explore")}

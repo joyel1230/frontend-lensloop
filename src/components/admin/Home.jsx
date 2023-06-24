@@ -4,7 +4,7 @@ import { adminApiCall } from "../../services/admin/apiCalls";
 import { adminUrls } from "../../const/routesPath";
 import Loading from "../loading/Loading";
 import { BiRefresh } from "react-icons/bi";
-import ProfilePic from "../profile/ProfilePic";
+import ProfilePic from "../profile/mainComponents/ProfilePic";
 
 const Home = () => {
   const [users, setUsers] = useState(null);
@@ -14,11 +14,13 @@ const Home = () => {
   const searchValue = useRef();
   useEffect(() => {
     setLoading(true);
-    adminApiCall("get", adminUrls.adminUsers).then((res) => {
-      setLoading(false);
-      setUsers(res.data);
-      setSearchData(res.data);
-    });
+    adminApiCall("get", adminUrls.adminUsers)
+      .then((res) => {
+        setLoading(false);
+        setUsers(res.data);
+        setSearchData(res.data);
+      })
+      .catch((e) => console.log(e));
   }, [refresh]);
 
   const handleSearch = (e) => {
@@ -103,7 +105,7 @@ const Home = () => {
 
   return users ? (
     <div className="container mx-auto px-4 ">
-      {loading && <Loading />}
+      {loading && <Loading bg="none" />}
       <span className="hidden">
         <ToggleSwitch />
       </span>
@@ -138,11 +140,6 @@ const Home = () => {
             {searchData.map((user) => (
               <tr key={user._id} className="bg-white text-center">
                 <td className="py-2 px-4 border-b flex justify-center">
-                  {/* <img
-                    src={user.profilePic}
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full"
-                  /> */}
                   <ProfilePic
                     width="40"
                     dpUrl={user.profilePic}
@@ -180,7 +177,7 @@ const Home = () => {
     </div>
   ) : (
     <div className="flex justify-center w-full">
-      <Loading />
+      <Loading bg={"none"} />
     </div>
   );
 };

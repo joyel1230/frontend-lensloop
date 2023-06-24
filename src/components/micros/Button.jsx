@@ -9,7 +9,9 @@ const Button = (props) => {
     <div
       className={`border-2 border-current p-1 px-5 rounded-xl ${btnblk} hover:bg-gray-500 text-center cursor-pointer`}
     >
-      <span className="font-extrabold">{props?.title}</span>
+      <span className="flex">
+        <span className="font-extrabold">{props?.title}</span>
+      </span>
     </div>
   );
 };

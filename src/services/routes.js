@@ -6,14 +6,12 @@ import Error from "../pages/error/Error";
 import Home from "../pages/home/Home";
 import Profile from "../pages/profile/Profile";
 import ForgotPass from "../pages/login/ForgotPass";
-// import AdminLogin from "../components/admin/AdminLogin";
-// import Admin from "../pages/admin/Admin";
-// import AdminHome from "../pages/admin/AdminHome";
-import { adminRoutes } from "./admin/routes";
+import { adminLogin, adminRoutes } from "./admin/routes";
 import NewPost from "../pages/post/NewPost";
 import EditProfile from "../components/profile/options/EditProfile";
 import ChangePass from "../components/profile/options/ChangePass";
 import SinglePost from "../components/post/SinglePost";
+import Explore from "../pages/explore/explore";
 
 const appRouter = createBrowserRouter([
   {
@@ -45,6 +43,10 @@ const appRouter = createBrowserRouter([
         path: "/posts/:id",
         element: <SinglePost />,
       },
+      {
+        path: "/explore",
+        element: <Explore />,
+      },
     ],
   },
   {
@@ -62,6 +64,7 @@ const appRouter = createBrowserRouter([
 
   // admin routes
   adminRoutes,
+  adminLogin
 ]);
 
 export default appRouter;

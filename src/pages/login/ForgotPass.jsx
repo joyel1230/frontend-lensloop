@@ -41,7 +41,7 @@ const ForgotPass = () => {
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
-      {loading && <Loading />}
+      {loading && <Loading bg={"none"} />}
       {show && <Modal hide={setShow} title={title} desc={desc} path="/login" />}
       <div className="max-w-md w-full bg-white p-8 shadow-lg rounded-3xl">
         <h2 className="text-2xl font-bold mb-8">Forgot Password</h2>
@@ -106,7 +106,7 @@ const ForgotPass = () => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <Link to={'/login'}>
+            <Link to={"/login"}>
               <Back />
             </Link>
             <button
