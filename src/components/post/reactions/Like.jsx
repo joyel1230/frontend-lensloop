@@ -7,7 +7,7 @@ const Like = (props) => {
     <>
       <span className="cursor-pointer ">
         {liked ? (
-          <span className="heart-animation">
+          <span className="heart-animation cursor-pointer">
             <AiFillHeart color="red" size={25} />
           </span>
         ) : (

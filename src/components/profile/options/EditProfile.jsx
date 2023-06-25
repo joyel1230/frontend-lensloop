@@ -102,9 +102,7 @@ const EditProfile = () => {
         />
       ) : null}
       <span className="ms-5">
-        <Link to={`../${userDetails?.username}`}>
-          <Back />
-        </Link>
+        <Back />
       </span>
       <div className="px-1 sm:w-[85%] sm:mx-auto">
         <div className="flex justify-between my-2 text-lg sm:text-2xl border-b-2 border-t-2 border-current py-3">
@@ -174,11 +172,10 @@ const EditProfile = () => {
           </div>
         </div>
         <div className="flex justify-end mt-3">
-          {error && 
-            <Loading bg={'none'}/>}
-            <span onClick={handleSubmit}>
-              <Button title="Update" clr="h-fit w-fit" />
-            </span>
+          {error && <Loading bg={"none"} />}
+          <span onClick={handleSubmit}>
+            <Button title="Update" clr="h-fit w-fit" />
+          </span>
         </div>
       </div>
     </>

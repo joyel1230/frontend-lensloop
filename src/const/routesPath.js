@@ -21,4 +21,6 @@ export const postUrls = {
   posts: "/posts",
   postsUpload: "/posts/upload",
   postsDelete: "/posts/delete",
+  postsLike: "/posts/like",
+  postsSave: "/posts/save",
 };

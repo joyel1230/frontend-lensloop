@@ -4,7 +4,6 @@ import { apiCall } from "../../services/apiCalls";
 import { userUrls } from "../../const/routesPath";
 import Loading from "../../components/loading/Loading";
 import Back from "../../components/micros/Back";
-import { Link } from "react-router-dom";
 
 const ForgotPass = () => {
   const [show, setShow] = useState(false);
@@ -106,9 +105,7 @@ const ForgotPass = () => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <Link to={"/login"}>
-              <Back />
-            </Link>
+            <Back />
             <button
               className="bg-black text-white px-4 py-3 rounded-lg hover:bg-green-900 transition-colors duration-300"
               type="submit"

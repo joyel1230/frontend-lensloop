@@ -18,7 +18,6 @@ const AdminPostC = () => {
         setLoading(false);
         setUsers(res.data);
         setSearchData(res.data);
-        console.log(res.data);
       })
       .catch((e) => console.log(e));
   }, [refresh]);

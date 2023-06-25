@@ -26,7 +26,7 @@ const Profile = () => {
       <div className="sm:flex w-full sm:justify-center mx-auto flex-none">
         <ProfileTopDiv username={username} />
       </div>
-      <ProfilePostSection userId={userDetails?._id} username={username} />
+      <ProfilePostSection userId={userDetails?._id} />
     </div>
   );
 };

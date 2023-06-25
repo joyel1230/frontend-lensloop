@@ -72,27 +72,29 @@ const Register = () => {
   };
 
   const handleUsername = async (e) => {
-    let username = e.target.value.trim();
-    username = username.toLowerCase();
-    const data = {
-      params: { username },
-    };
-    const user = await apiCall("get", userUrls.users, data);
-    if (!user.data && !username.includes(" ")) {
-      setError(null);
-      setValidUsername(username);
-      setCredentials({
-        ...credentials,
-        username: username,
-      });
-    } else {
-      setValidUsername(null);
-      if (username.includes(" ")) {
-        setError("username can't contain space");
+    try {
+      let username = e.target.value.trim();
+      username = username.toLowerCase();
+      const data = {
+        params: { username },
+      };
+      const user = await apiCall("get", userUrls.users, data);
+      if (!user.data && !username.includes(" ")) {
+        setError(null);
+        setValidUsername(username);
+        setCredentials({
+          ...credentials,
+          username: username,
+        });
       } else {
-        setError("username is already taken");
+        setValidUsername(null);
+        if (username.includes(" ")) {
+          setError("username can't contain space");
+        } else {
+          setError("username is already taken");
+        }
       }
-    }
+    } catch (error) {}
   };
   const title = "Email sent successfully";
   const desc = "Click the url in your email to verify...";

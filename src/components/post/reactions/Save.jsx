@@ -1,11 +1,17 @@
 import React from "react";
-import { BsBookmarkPlus } from "react-icons/bs";
+import { BsBookmarkPlus, BsBookmarkPlusFill } from "react-icons/bs";
 
-const Save = () => {
+const Save = ({saved}) => {
   return (
     <>
-      <span className="cursor-pointer">
-        <BsBookmarkPlus size={25} />
+      <span className="cursor-pointer ">
+        {saved ? (
+          <span className="heart-animation">
+            <BsBookmarkPlusFill color="green" size={25} />
+          </span>
+        ) : (
+          <BsBookmarkPlus size={25} />
+        )}
       </span>
     </>
   );

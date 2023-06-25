@@ -10,7 +10,7 @@ import { adminLogin, adminRoutes } from "./admin/routes";
 import NewPost from "../pages/post/NewPost";
 import EditProfile from "../components/profile/options/EditProfile";
 import ChangePass from "../components/profile/options/ChangePass";
-import SinglePost from "../components/post/SinglePost";
+import SinglePost from "../pages/post/SinglePost";
 import Explore from "../pages/explore/explore";
 
 const appRouter = createBrowserRouter([

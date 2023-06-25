@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Explore = () => {
   const [load, setload] = useState(true);
-  const [posts, setPosts] = useState();
+  const [posts, setPosts] = useState([]);
   useEffect(() => {
     apiCall("get", postUrls.posts, {})
       .then((response) => {
@@ -25,20 +25,18 @@ const Explore = () => {
 
   return (
     <div className="w-full px-2 py-4 ">
-      {load ? (
-        <Loading />
-      ) : (
-        <div className="flex flex-wrap gap-5 justify-center">
-          {posts.map((post, index, array) => {
-            const post2 = array[array.length - 1 - index];
-            return (
-              <Link to={`/posts/${post2?._id}`} key={post2._id}>
-                <img src={post2?.image} width={400} alt="" />
-              </Link>
-            );
-          })}
-        </div>
-      )}
+      {load && <Loading bg={true} />}
+
+      <div className="flex flex-wrap gap-5 justify-center">
+        {posts.map((post, index, array) => {
+          const post2 = array[array.length - 1 - index];
+          return (
+            <Link to={`/posts/${post2?._id}`} key={post2._id}>
+              <img src={post2?.image} width={400} alt="" />
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 };

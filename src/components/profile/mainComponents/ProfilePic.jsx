@@ -7,7 +7,7 @@ const ProfilePic = (props) => {
     <>
       <Link to={""} className="relative ">
         {online && (
-          <span className=" bg-green-500 rounded-full bottom-0 left-[1.7rem] border-2 border-black w-[0.7rem] h-[0.7rem] absolute"></span>
+          <span className=" bg-green-500 rounded-full bottom-0 left-[1.7rem] border-2 border-transparent w-[0.7rem] h-[0.7rem] absolute"></span>
         )}
         <img src={dpUrl} width={width} alt="" className="rounded-full" />
       </Link>
