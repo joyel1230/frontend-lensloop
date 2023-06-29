@@ -18,7 +18,7 @@ const NavBar = () => {
   const username = userDetails?.username;
   return (
     <div className="h-full w-full border-r-2 border-current">
-      <ul className="h-full flex flex-col justify-between p-3 text-sm font-bold xs:text-center max-h-[90%]">
+      <ul className="h-full flex flex-col justify-between p-3 text-sm font-bold xs:text-center max-h-[80%]">
         <Link to={"/"}>
           <li className="text-3xl flex justify-center sm:flex-none sm:justify-normal">
             <span className="sm:hidden">

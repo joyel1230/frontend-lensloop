@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { Formik } from "formik";
-import { adminApiCall } from "../../services/admin/apiCalls";
-import { adminUrls } from "../../const/routesPath";
 import { adminAuth } from "../../const/localstorage";
 import { AdminAuthMiddleWare } from "../../services/authMiddleWare";
 import { useNavigate } from "react-router-dom";
+import { postLogin } from "../../services/admin/apiMethods";
 
 const AdminLogin = () => {
   const adminCheck = AdminAuthMiddleWare();
@@ -51,11 +50,7 @@ const AdminLogin = () => {
                 setTimeout(async () => {
                   try {
                     const data = { email: values?.email };
-                    const response = await adminApiCall(
-                      "post",
-                      adminUrls.adminLogin,
-                      data
-                    );
+                    const response = await postLogin(data)
                     localStorage.setItem(adminAuth, response.data);
                     window.location.reload("/admin");
                   } catch (error) {

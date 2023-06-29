@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import Cropper from "react-easy-crop";
 import UseCropImage from "../../../hooks/cropImageUrl";
 
-const CropImage = ({ imgUrl, aspectInit, setCroppedImg, setimgSelected }) => {
+const CropImage = ({ imgUrl, aspectInit, setCroppedImg, setimgSelected, setErr }) => {
   const [disable, setDisable] = useState(false);
   const zoomInit = 1;
   const cropInit = { x: 0, y: 0 };
+  if (setErr) {
+    setErr('')
+  }
   const onCropChange = (crop) => {
     setCrop(crop);
   };
@@ -23,7 +26,13 @@ const CropImage = ({ imgUrl, aspectInit, setCroppedImg, setimgSelected }) => {
       setCroppedImg(croppedUrl);
       setimgSelected(false);
     } catch (error) {
+      setimgSelected(false);
+      setDisable(false);
+      if (setErr) {
+        setErr('Please choose an image file...')
+      }
       console.log(error);
+
     }
   };
 

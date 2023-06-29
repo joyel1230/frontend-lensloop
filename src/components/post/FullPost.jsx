@@ -9,8 +9,11 @@ import Save from "./reactions/Save";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { GetUsernameFromRedux } from "../../utils/userInRedux";
-import { apiCall } from "../../services/apiCalls";
-import { postUrls } from "../../const/routesPath";
+import { patchLike, patchSave } from "../../services/apiMethods";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+TimeAgo.addLocale(en);
+const timeAgo = new TimeAgo("en-US");
 
 const FullPost = ({ postDetails, width, online, count = 1 }) => {
   const userDetails = GetUsernameFromRedux();
@@ -26,6 +29,12 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
   const [liked, setLiked] = useState(likeStatus);
   const [likeCount, setLikeCount] = useState(postDetails?.likes?.length);
   const [saved, setSaved] = useState(saveStatus);
+
+  const givenDateTime = new Date(postDetails?.date);
+  const formattedTimeDifference = timeAgo.format(
+    Date.now() - (Date.now() - givenDateTime.getTime())
+  );
+
   const handleLikes = async (foo) => {
     const data = {
       postId: postDetails?._id,
@@ -41,7 +50,7 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
           setLikeCount(likeCount - 1);
         }
       }
-      await apiCall("patch", postUrls.postsLike, data);
+      await patchLike(data);
     } catch (error) {
       setLiked(!foo);
       console.log(error);
@@ -55,7 +64,7 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
     };
     try {
       setSaved(foo);
-      await apiCall("patch", postUrls.postsSave, data);
+      await patchSave(data);
     } catch (error) {
       setSaved(!foo);
       console.log(error);
@@ -66,7 +75,7 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
     if (navigator.share) {
       navigator
         .share({
-          url: '/posts/'+post._id,
+          url: "/posts/" + post._id,
         })
         .then(() => console.log("Share successful"))
         .catch((error) => console.log("Share failed", error));
@@ -85,6 +94,9 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
             online={online}
           />
           <UserName size={dp} username={postDetails?.userId?.username} />
+          <span className="text-xs text-gray-400">
+            {formattedTimeDifference}
+          </span>
         </div>
         <BsThreeDotsVertical className="mr-4 cursor-pointer" size={20} />
       </div>
@@ -102,15 +114,17 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
             <Like liked={liked} />
           </span>
           <span className="ms-10">
-            <Comment />
+            <Comment postDetails={postDetails} />
           </span>
           <span onClick={() => handleShare(postDetails)}>
             <Share />
           </span>
         </div>
-        <div onClick={() => handleSave(!saved)}>
-          <Save saved={saved} />
-        </div>
+        {userDetails?.username !== postDetails?.userId?.username && (
+          <div onClick={() => handleSave(!saved)}>
+            <Save saved={saved} />
+          </div>
+        )}
       </div>
       <div className="ml-4 my-1 select-none">{likeCount} likes</div>
       <div
@@ -120,7 +134,9 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
       >
         <UserName size={dp} username={postDetails?.userId?.username} />
         <span
-          className={desc ? `font-sans ml-4 ${desc}` : `font-sans text-sm ml-4`}
+          className={
+            desc ? `font-sans text-sm ml-4 ${desc}` : `font-sans text-sm ml-4`
+          }
         >
           {postDetails?.description}
         </span>

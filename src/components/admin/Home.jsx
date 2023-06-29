@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import ToggleSwitch from "./toggle";
-import { adminApiCall } from "../../services/admin/apiCalls";
-import { adminUrls } from "../../const/routesPath";
 import Loading from "../loading/Loading";
 import { BiRefresh } from "react-icons/bi";
 import ProfilePic from "../profile/mainComponents/ProfilePic";
+import { getUsers, patchUser } from "../../services/admin/apiMethods";
 
 const Home = () => {
   const [users, setUsers] = useState(null);
@@ -14,7 +13,7 @@ const Home = () => {
   const searchValue = useRef();
   useEffect(() => {
     setLoading(true);
-    adminApiCall("get", adminUrls.adminUsers)
+    getUsers()
       .then((res) => {
         setLoading(false);
         setUsers(res.data);
@@ -35,11 +34,7 @@ const Home = () => {
     try {
       const data = { status: { changeKey: "verified", bool: !curValue } };
       setLoading(true);
-      const response = await adminApiCall(
-        "patch",
-        `${adminUrls.adminUsersStatus}/${username}`,
-        data
-      );
+      const response = await patchUser(username, data);
       if (response.status === 200) {
         setLoading(false);
         setSearchData((prevUsers) => {
@@ -71,11 +66,7 @@ const Home = () => {
     try {
       const data = { status: { changeKey: "blocked", bool: !curValue } };
       setLoading(true);
-      const response = await adminApiCall(
-        "patch",
-        `${adminUrls.adminUsersStatus}/${username}`,
-        data
-      );
+      const response = await patchUser(username, data);
       if (response.status === 200) {
         setLoading(false);
         setSearchData((prevUsers) => {

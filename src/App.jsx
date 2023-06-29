@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "./components/layout/navBar/NavBar";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate} from "react-router-dom";
 import { useSelector } from "react-redux";
 import AuthMiddleWare from "./services/authMiddleWare";
+import { getUserByUsername } from "./services/apiMethods";
+import { userAuth } from "./const/localstorage";
 
 function App() {
   let user;
   const obj = AuthMiddleWare();
+  useEffect(() => {
+    const username =obj?.userDetails?.username
+    const data = {
+      params:{username}
+    }
+    getUserByUsername(data).then((res)=>{
+      if (res?.data?.blocked) {
+        localStorage.removeItem(userAuth)
+        window.location.reload('/login')
+      }
+    }).catch((err)=>console.log(err))
+  });
+
   if (obj.user) {
     user = true;
   } else {

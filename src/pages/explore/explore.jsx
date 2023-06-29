@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { apiCall } from "../../services/apiCalls";
-import { postUrls } from "../../const/routesPath";
 import Loading from "../../components/loading/Loading";
 import { Link } from "react-router-dom";
+import { getAllPosts } from "../../services/apiMethods";
 
 const Explore = () => {
   const [load, setload] = useState(true);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    apiCall("get", postUrls.posts, {})
+    getAllPosts()
       .then((response) => {
         setPosts(response?.data);
         setTimeout(() => {

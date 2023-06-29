@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Modal from "../../components/micros/emailSentModal/Modal";
-import { apiCall } from "../../services/apiCalls";
-import { userUrls } from "../../const/routesPath";
 import Loading from "../../components/loading/Loading";
 import Back from "../../components/micros/Back";
+import { postForgot } from "../../services/apiMethods";
 
 const ForgotPass = () => {
   const [show, setShow] = useState(false);
@@ -23,7 +22,7 @@ const ForgotPass = () => {
         setErr("");
         setLoading(true);
         const data = { email, newPass };
-        const response = await apiCall("post", userUrls.usersForgot, data);
+        const response = await postForgot(data)
         setLoading(false);
         if (response.status === 200) {
           setShow(true);
@@ -48,7 +47,6 @@ const ForgotPass = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="Email"
             >
               Email
             </label>
@@ -67,7 +65,6 @@ const ForgotPass = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="newPassword"
             >
               New Password
             </label>
@@ -87,7 +84,6 @@ const ForgotPass = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="confirmPassword"
             >
               Confirm Password
             </label>

@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { apiCall } from "../../services/apiCalls";
-import { postUrls } from "../../const/routesPath";
 import FullPost from "../../components/post/FullPost";
 import Loading from "../../components/loading/Loading";
-// import FullPost from "../../components/post/FullPost";
-// import { GetUsernameFromRedux } from "../../utils/userInRedux";
+import { getAllPosts } from "../../services/apiMethods";
 
 const Home = () => {
   const sectionRef = useRef(null);
@@ -12,7 +9,7 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     sectionRef.current.scrollIntoView({ behavior: "smooth" });
-    apiCall("get", postUrls.posts)
+    getAllPosts()
       .then((response) => {
         setPosts(response?.data);
         setTimeout(() => {
@@ -29,12 +26,12 @@ const Home = () => {
   return (
     <div className="container" ref={sectionRef}>
       {load && <Loading bg={true} />}
-
       <div className="cards flex flex-wrap gap-10 justify-center">
-        {posts.map((post, i) => {
+        {posts.map((post1, index, array) => {
+          const post = array[array.length - 1 - index];
           return (
-            <div className="w-full flex justify-center" key={i}>
-              <FullPost postDetails={post} width="600" />
+            <div className="w-full flex justify-center" key={post._id}>
+              <FullPost postDetails={post} online={false} width="600" />
             </div>
           );
         })}

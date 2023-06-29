@@ -3,12 +3,10 @@ import Back from "../../micros/Back";
 import { Link } from "react-router-dom";
 import { GetUsernameFromRedux } from "../../../utils/userInRedux";
 import Button from "../../micros/Button";
-import { apiCall } from "../../../services/apiCalls";
-import { userUrls } from "../../../const/routesPath";
-
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../loading/Loading";
+import { patchPassword } from "../../../services/apiMethods";
 
 const ChangePass = () => {
   const userDetails = GetUsernameFromRedux();
@@ -27,11 +25,7 @@ const ChangePass = () => {
       try {
         setLoad(true)
         const data = { newPass: newPass };
-        await apiCall(
-          "patch",
-          `${userUrls.usersChangePass}/${userDetails.username}`,
-          data
-        );
+        await patchPassword(userDetails,data)
         setLoad(false)
         setPasswords({ newPass: "", confirmPass: "" });
         notify();

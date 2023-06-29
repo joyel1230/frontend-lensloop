@@ -4,22 +4,22 @@ import { Link } from "react-router-dom";
 import { GetUsernameFromRedux } from "../../../utils/userInRedux";
 import ProfilePic from "../mainComponents/ProfilePic";
 import Button from "../../micros/Button";
-import { apiCall } from "../../../services/apiCalls";
-import { userUrls } from "../../../const/routesPath";
 import { useDispatch } from "react-redux";
 import { setEditedUser } from "../../../utils/reduxSlices/user";
-
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CropImage from "./CropImage.jsx";
 import { uplaodToCloudinary } from "../../../hooks/cloudinary";
 import Loading from "../../loading/Loading";
+import { getUserByUsername, patchProfile } from "../../../services/apiMethods";
 
 const EditProfile = () => {
   const userDetails = GetUsernameFromRedux();
   const [proPic, setProPic] = useState(userDetails?.profilePic);
   const imgRef = useRef();
+  const upRef = useRef();
   const [error, setError] = useState(null);
+  const [load, setLoad] = useState(false);
   const [validUsername, setValidUsername] = useState(userDetails?.username);
   const [name, setName] = useState(userDetails?.name ?? "");
   const [username, setUsername] = useState(userDetails?.username);
@@ -41,13 +41,16 @@ const EditProfile = () => {
     const data = {
       params: { username },
     };
-    const user = await apiCall("get", userUrls.users, data);
+    upRef.current.classList.add("pointer-events-none");
+    const user = await getUserByUsername(data)
     if (!user.data && !username.includes(" ") && username.length > 3) {
+      upRef.current.classList.remove("pointer-events-none");
       setError(null);
       setValidUsername(username);
     } else {
       if (username === userDetails.username) {
         setError(null);
+        upRef.current.classList.remove("pointer-events-none");
         setValidUsername(username);
       } else {
         setValidUsername(null);
@@ -64,8 +67,8 @@ const EditProfile = () => {
 
   const handleSubmit = async () => {
     try {
-      setError(" ");
       let dpUrl;
+      setLoad(true);
       if (croppedImg === userDetails?.profilePic) {
         dpUrl = null;
       } else {
@@ -77,16 +80,13 @@ const EditProfile = () => {
         newUsername: validUsername,
         newDpUrl: dpUrl,
       };
-      const response = await apiCall(
-        "patch",
-        `${userUrls.usersEditProfile}/${userDetails.username}`,
-        data
-      );
+      const response = await patchProfile(userDetails,data)
+      setLoad(false);
       notify();
-      setError("");
       const editedUserToken = response?.data?.token;
       dispatch(setEditedUser({ token: editedUserToken }));
     } catch (error) {
+      setLoad(false);
       console.log(error);
     }
   };
@@ -99,6 +99,7 @@ const EditProfile = () => {
           aspectInit={{ value: 1 / 1 }}
           setCroppedImg={setCroppedImg}
           setimgSelected={setimgSelected}
+          setErr={setError}
         />
       ) : null}
       <span className="ms-5">
@@ -145,7 +146,7 @@ const EditProfile = () => {
           <input
             ref={imgRef}
             type="file"
-            accept="image/jpeg, image/png"
+            accept="image/jpeg, image/png, image/webp"
             className="hidden"
             onChange={handleImage}
           />
@@ -172,8 +173,8 @@ const EditProfile = () => {
           </div>
         </div>
         <div className="flex justify-end mt-3">
-          {error && <Loading bg={"none"} />}
-          <span onClick={handleSubmit}>
+          {load && <Loading bg={"none"} />}
+          <span onClick={handleSubmit} ref={upRef}>
             <Button title="Update" clr="h-fit w-fit" />
           </span>
         </div>

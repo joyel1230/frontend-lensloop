@@ -6,16 +6,12 @@ import { UseRegisterValidate } from "../../hooks/registerValidate";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
-import { userUrls } from "../../const/routesPath";
-// import { useDispatch } from "react-redux";
-// import { setReduxUser } from "../../utils/reduxSlices/user";
 import AuthMiddleWare from "../../services/authMiddleWare";
-import { apiCall } from "../../services/apiCalls";
 import Modal from "../../components/micros/emailSentModal/Modal";
 import Loading from "../../components/loading/Loading";
+import { getUserByUsername, postRegister } from "../../services/apiMethods";
 
 const Register = () => {
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const usernameValue = useRef(null);
   const [show, setShow] = useState(false);
@@ -56,7 +52,7 @@ const Register = () => {
           cred = { ...credentials, profilePic };
         }
         const data = { cred };
-        const response = await apiCall("post", userUrls.usersRegister, data);
+        const response = await postRegister(data)
         setLoading(false);
         if (response.data?.status === 200) {
           setShow(true);
@@ -78,7 +74,7 @@ const Register = () => {
       const data = {
         params: { username },
       };
-      const user = await apiCall("get", userUrls.users, data);
+      const user = await getUserByUsername(data)
       if (!user.data && !username.includes(" ")) {
         setError(null);
         setValidUsername(username);
@@ -99,127 +95,170 @@ const Register = () => {
   const title = "Email sent successfully";
   const desc = "Click the url in your email to verify...";
   return (
-    <div className="relative">
-      {loading && <Loading bg={"none"} />}
-      {show && (
-        <Modal
-          hide={setShow}
-          title={title}
-          desc={desc}
-          emailTo={credentials?.email}
-          path="/login"
-        />
-      )}
-      <div className="w-full h-screen flex justify-center items-center">
-        <div className="relative">
-          <img src="./images/login-bg-1.png" width={300} alt="" />
-          <form action="">
-            <div className="absolute top-44 flex flex-col gap-2 mt-1 left-14">
-              {googleAuth?.email ? (
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="neumorphic-input"
-                  disabled
-                  value={googleAuth?.email}
-                />
-              ) : (
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="neumorphic-input"
-                  required
-                  value={credentials?.email}
-                  onChange={(e) =>
-                    setCredentials({
-                      ...credentials,
-                      email: e.target.value.trim().replace(" ", ""),
-                    })
-                  }
-                />
-              )}
-              <input
-                type="text"
-                placeholder="Username"
-                className="neumorphic-input"
-                required
-                ref={usernameValue}
-                onChange={(e) => handleUsername(e)}
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                required
-                className="neumorphic-input"
-                onChange={(e) =>
-                  setCredentials({
-                    ...credentials,
-                    password: e.target.value.trim().replace(" ", ""),
-                  })
-                }
-              />
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                className="neumorphic-input"
-                required
-                onChange={(e) =>
-                  setCredentials({
-                    ...credentials,
-                    confirmPassword: e.target.value.trim().replace(" ", ""),
-                  })
-                }
-              />
-              <button
-                type="submit"
-                className="w-full flex justify-center"
-                onClick={(e) => handleSubmit(e)}
-              >
-                <Button
-                  title="Register"
-                  clr={"text-black bg-white border-white w-fit"}
-                />
-              </button>
-              <div className="text-center -mt-3 text-black">
-                <span className="text-gray-500 text-xs m">OR</span>
-                <br />
-                <GoogleOAuthProvider
-                  clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
-                >
-                  {!googleAuth && (
-                    <GoogleLogin
-                      width="190"
-                      onSuccess={(credentialResponse) => {
-                        const data = jwt_decode(credentialResponse.credential);
-                        setGoogleAuth(data);
+    <>
+      <div className="relative">
+        {loading && <Loading bg={"none"} />}
+        {show && (
+          <Modal
+            hide={setShow}
+            title={title}
+            desc={desc}
+            emailTo={credentials?.email}
+            path="/login"
+          />
+        )}
+
+        <div className="container h-screen flex items-center justify-center">
+          <div
+            id="img-div"
+            className="bg-cover w-[25rem] h-[35rem] mt-10  bg-center bg-no-repeat relative p-[1.3rem] hidden md:block"
+            style={{ backgroundImage: "url(./images/home-phones-2x.png)" }}
+          >
+            <img
+              src="./images/screenshot3-2x.png"
+              alt=""
+              className="w-[14rem] ms-[6.9rem]"
+            />
+          </div>
+          <div className="h-screen md:h-[35rem] w-full px-5 md:px-0 md:w-[20rem]  flex items-center justify-center">
+            <div className="max-w-md w-full bg-white py-10 px-5  shadow-lg rounded-3xl">
+              <h2 className="text-4xl text-center font-bold mb-4">ℒ𝑒𝓃𝓈ℒ𝑜𝑜𝓅</h2>
+              <form>
+                <div className="mb-1">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-0"
+                  >
+                    Email
+                  </label>
+
+                  {googleAuth?.email ? (
+                    <input
+                      type="email"
+                      className="w-full px-4 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
+                      disabled
+                      value={googleAuth?.email}
+                    />
+                  ) : (
+                    <input
+                      type="email"
+                      className="w-full px-4 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
+                      required
+                      value={credentials?.email}
+                      onChange={(e) =>
                         setCredentials({
                           ...credentials,
-                          email: data?.email,
-                          username: data?.given_name,
-                        });
-                        setValidUsername(data?.given_name);
-                        const data1 = JSON.stringify(data);
-                        localStorage.setItem("google_user", data1);
-                      }}
-                      onError={() => {
-                        console.log("Login Failed");
-                      }}
+                          email: e.target.value.trim().replace(" ", ""),
+                        })
+                      }
                     />
                   )}
-                </GoogleOAuthProvider>
+                </div>
+                <div className="mb-1">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-0"
+                  >
+                    Username
+                  </label>
+                  <input
+                    className="w-full px-4 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
+                    id="username"
+                    type="text"
+                    required
+                    ref={usernameValue}
+                    onChange={(e) => handleUsername(e)}
+                  />
+                </div>
+                <div className="mb-1">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-0"
+                  >
+                    Password
+                  </label>
+                  <input
+                    className="w-full px-4 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
+                    id="newPassword"
+                    minLength={4}
+                    type="password"
+                    required
+                    onChange={(e) =>
+                      setCredentials({
+                        ...credentials,
+                        password: e.target.value.trim().replace(" ", ""),
+                      })
+                    }
+                  />
+                </div>
+                <div className="mb-1">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-0"
+                  >
+                    Confirm Password
+                  </label>
+                  <input
+                    className="w-full px-4 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-black"
+                    id="confirmPassword"
+                    minLength={4}
+                    required
+                    type="password"
+                    onChange={(e) =>
+                      setCredentials({
+                        ...credentials,
+                        confirmPassword: e.target.value.trim().replace(" ", ""),
+                      })
+                    }
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full flex justify-center"
+                  onClick={(e) => handleSubmit(e)}
+                >
+                  <Button
+                    title="Register"
+                    clr={"text-white py-2 bg-black border-white w-fit"}
+                  />
+                </button>
 
-                <Link to={"/login"}>
-                  <span className="text-xs underline">Back to Login</span>
-                </Link>
-              </div>
+                <div className="flex flex-col items-center gap-1 text-black">
+                  <span className="text-gray-500 text-xs">OR</span>
+                  <GoogleOAuthProvider
+                    clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+                  >
+                    {!googleAuth && (
+                      <GoogleLogin
+                        width="190"
+                        onSuccess={(credentialResponse) => {
+                          const data = jwt_decode(
+                            credentialResponse.credential
+                          );
+                          setGoogleAuth(data);
+                          setCredentials({
+                            ...credentials,
+                            email: data?.email,
+                            username: data?.given_name,
+                          });
+                          setValidUsername(data?.given_name);
+                          const data1 = JSON.stringify(data);
+                          localStorage.setItem("google_user", data1);
+                        }}
+                        onError={() => {
+                          console.log("Login Failed");
+                        }}
+                      />
+                    )}
+                  </GoogleOAuthProvider>
+
+                  <Link to={"/login"}>
+                    <span className="text-xs underline">Back to Login</span>
+                  </Link>
+                </div>
+                <p className="text-center text-red-500">{error}</p>
+              </form>
             </div>
-            <span className="absolute bottom-12 w-full text-center text-red-500">
-              {error}
-            </span>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

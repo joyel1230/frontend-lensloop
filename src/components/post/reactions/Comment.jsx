@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineComment } from "react-icons/ai";
+import CommentScreen from "../Comment";
 
-function Comment() {
+function Comment({postDetails}) {
+  const [showBox, setShowBox] = useState(false)
   return (
     <>
-      <span className="cursor-pointer">
+    {showBox && <CommentScreen show={setShowBox} post={postDetails}/>}
+      <span className="cursor-pointer" onClick={()=>setShowBox(true)}>
         <AiOutlineComment size={25} />
       </span>
     </>

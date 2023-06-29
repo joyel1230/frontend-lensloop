@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import FullPost from "../../post/FullPost";
-import { apiCall } from "../../../services/apiCalls";
-import { postUrls } from "../../../const/routesPath";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserPosts } from "../../../utils/reduxSlices/userPost";
 import ProfileBar from "../options/ProfileBar";
 import { Link } from "react-router-dom";
+import { getSavedPost, getUserPost } from "../../../services/apiMethods";
 
 const ProfilePostSection = ({ userId }) => {
   const dispatch = useDispatch();
@@ -16,7 +15,7 @@ const ProfilePostSection = ({ userId }) => {
   useEffect(() => {
     const data = { params: { userId: userId } };
     if (page === "saved") {
-      apiCall("get", postUrls.postsSave, { params: { userId: userId } })
+      getSavedPost(data)
         .then((response) => {
           console.log(response.data);
           dispatch(setUserPosts(response.data));
@@ -25,7 +24,7 @@ const ProfilePostSection = ({ userId }) => {
           console.log(e);
         });
     } else {
-      apiCall("get", postUrls.posts, data)
+      getUserPost(data)
         .then((response) => {
           dispatch(setUserPosts(response.data));
           setTimeout(() => {

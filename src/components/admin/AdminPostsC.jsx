@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import ToggleSwitch from "./toggle";
-import { adminApiCall } from "../../services/admin/apiCalls";
-import { postUrls } from "../../const/routesPath";
 import Loading from "../loading/Loading";
 import { BiRefresh } from "react-icons/bi";
+import { deletePost, getPosts } from "../../services/admin/apiMethods";
 
 const AdminPostC = () => {
   const [users, setUsers] = useState(null);
@@ -13,13 +12,13 @@ const AdminPostC = () => {
   const searchValue = useRef();
   useEffect(() => {
     setLoading(true);
-    adminApiCall("get", postUrls.posts, { params: { userId: "admin" } })
-      .then((res) => {
-        setLoading(false);
-        setUsers(res.data);
-        setSearchData(res.data);
-      })
-      .catch((e) => console.log(e));
+    getPosts().then((res) => {
+      setLoading(false);
+      setUsers(res.data);
+      setSearchData(res.data);
+    }).catch((err)=>{
+      console.error(err)
+    })
   }, [refresh]);
 
   const handleSearch = (e) => {
@@ -34,11 +33,7 @@ const AdminPostC = () => {
     try {
       const data = { postId: id, value: !curValue };
       setLoading(true);
-      const response = await adminApiCall(
-        "patch",
-        `${postUrls.postsDelete}`,
-        data
-      );
+      const response = await deletePost(data)
       if (response.status === 200) {
         setLoading(false);
         setSearchData((prevUsers) => {

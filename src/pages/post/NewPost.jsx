@@ -5,12 +5,11 @@ import { useState } from "react";
 import CropImage from "../../components/profile/options/CropImage";
 import { uplaodToCloudinary } from "../../hooks/cloudinary";
 import { GetUsernameFromRedux } from "../../utils/userInRedux";
-import { apiCall } from "../../services/apiCalls";
-import { postUrls } from "../../const/routesPath";
-
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../components/loading/Loading";
+import { postUpload } from "../../services/apiMethods";
+import { useNavigate } from "react-router-dom";
 
 const NewPost = () => {
   const userDetails = GetUsernameFromRedux();
@@ -21,6 +20,7 @@ const NewPost = () => {
   const imgInput = useRef("");
   const [imgSelected, setimgSelected] = useState(false);
   const [croppedImg, setCroppedImg] = useState(null);
+  const navigate = useNavigate()
 
   const notify = () => toast.success("Uploaded Successfully");
   const handleImage = (e) => {
@@ -48,8 +48,9 @@ const NewPost = () => {
           image: imgUrl,
           description: description,
         };
-        const response = await apiCall("post", postUrls.postsUpload, data);
+        const response = await postUpload(data)
         console.log(response.data)
+        navigate('/')
         notify();
         setCroppedImg(null);
         setDescription('')
@@ -68,6 +69,7 @@ const NewPost = () => {
           aspectInit={{ value: 16 / 9 }}
           setCroppedImg={setCroppedImg}
           setimgSelected={setimgSelected}
+          setErr={setError}
         />
       ) : null}
       <div className="container sm:px-10 px-0">
