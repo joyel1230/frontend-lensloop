@@ -55,3 +55,15 @@ export const postLogin = async (data) => {
     console.error(error);
   }
 };
+
+export const getReports = async () => {
+  try {
+    const resp = await adminApiCall(
+      "get",
+      adminUrls.adminPostsReport,
+    );
+    return resp
+  } catch (error) {
+    console.error(error);
+  }
+};

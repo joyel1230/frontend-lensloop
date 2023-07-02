@@ -12,7 +12,7 @@ import Logo from "../../micros/Logo";
 import { Link } from "react-router-dom";
 import { GetUsernameFromRedux } from "../../../utils/userInRedux";
 
-const NavBar = () => {
+const NavBar = ({ search }) => {
   const userDetails = GetUsernameFromRedux();
   const [activeItem, setActiveItem] = useState("home");
   const username = userDetails?.username;
@@ -42,21 +42,21 @@ const NavBar = () => {
             </span>
           </li>
         </Link>
-        <Link to={""}>
-          <li
-            className="flex gap-5 items-center justify-center sm:justify-normal"
-            onClick={() => setActiveItem("search")}
+        <li
+          className="flex gap-5 items-center justify-center sm:justify-normal cursor-pointer"
+          onClick={() => {
+            search(true);
+          }}
+        >
+          <AiOutlineSearch size={30} color="current" />
+          <span
+            className={`sm:flex hidden ${
+              activeItem === "search" ? "text-lg" : ""
+            }`}
           >
-            <AiOutlineSearch size={30} color="current" />
-            <span
-              className={`sm:flex hidden ${
-                activeItem === "search" ? "text-lg" : ""
-              }`}
-            >
-              SEARCH
-            </span>
-          </li>
-        </Link>
+            SEARCH
+          </span>
+        </li>
         <Link to={"/explore"}>
           <li
             className="flex gap-5 items-center justify-center sm:justify-normal"

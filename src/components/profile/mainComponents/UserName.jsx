@@ -5,7 +5,7 @@ const UserName = (props) => {
   const { username, size } = props;
   return (
     <>
-      <Link to={""}>
+      <Link to={`/${username}`}>
         <span className={size}>{username}</span>
       </Link>
     </>

@@ -12,10 +12,11 @@ import { GetUsernameFromRedux } from "../../utils/userInRedux";
 import { patchLike, patchSave } from "../../services/apiMethods";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import PostOption from "./options/PostOption";
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
-const FullPost = ({ postDetails, width, online, count = 1 }) => {
+const FullPost = ({ postDetails, width, online, profile }) => {
   const userDetails = GetUsernameFromRedux();
   if (!width) width = "400";
   let dp,
@@ -29,6 +30,7 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
   const [liked, setLiked] = useState(likeStatus);
   const [likeCount, setLikeCount] = useState(postDetails?.likes?.length);
   const [saved, setSaved] = useState(saveStatus);
+  const [showOptions, setShowOptions] = useState(false);
 
   const givenDateTime = new Date(postDetails?.date);
   const formattedTimeDifference = timeAgo.format(
@@ -92,22 +94,44 @@ const FullPost = ({ postDetails, width, online, count = 1 }) => {
             dpUrl={postDetails?.userId?.profilePic}
             width="35"
             online={online}
+            username={postDetails?.userId?.username}
           />
           <UserName size={dp} username={postDetails?.userId?.username} />
           <span className="text-xs text-gray-400">
             {formattedTimeDifference}
           </span>
         </div>
-        <BsThreeDotsVertical className="mr-4 cursor-pointer" size={20} />
+        {showOptions && (
+          <PostOption
+            show={setShowOptions}
+            user={userDetails?.username === postDetails?.userId?.username}
+            post={postDetails}
+            userId={userDetails?._id}
+          />
+        )}
+        <BsThreeDotsVertical
+          onClick={() => setShowOptions(true)}
+          className="mr-4 cursor-pointer"
+          size={20}
+        />
       </div>
-      <Link to={`/posts/${postDetails?._id}`}>
+      {profile ? (
+        <Link to={`/posts/${postDetails?._id}`}>
+          <span
+            onDoubleClick={() => handleLikes(!liked)}
+            className="cursor-pointer select-none"
+          >
+            <Post w={width} imgUrl={postDetails?.image} />
+          </span>
+        </Link>
+      ) : (
         <span
           onDoubleClick={() => handleLikes(!liked)}
-          className="cursor-pointer"
+          className="cursor-pointer select-none"
         >
           <Post w={width} imgUrl={postDetails?.image} />
         </span>
-      </Link>
+      )}
       <div className="mt-2 flex justify-between mx-4">
         <div className="flex justify-between gap-3 relative">
           <span onClick={() => handleLikes(!liked)} className="absolute">

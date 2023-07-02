@@ -111,7 +111,7 @@ const CommentScreen = ({ show, post }) => {
           style={headingStyles}
           className="text-lg text-center font-semibold font-sans"
         >
-          Comment to {post?.userId?.username}'s post
+          Comments to {post?.userId?.username}'s post
         </h2>
         <form className="mb-5" onSubmit={handleSubmit}>
           <div style={{ marginBottom: "0.1rem" }} className="mb-4">

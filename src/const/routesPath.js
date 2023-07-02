@@ -5,6 +5,10 @@ export const userUrls = {
   usersForgot: "/users/forgot",
   usersEditProfile: "users/edit-profile",
   usersChangePass: "users/change-pass",
+  usersPrivate: "users/private",
+  usersFollowers: "users/followers",
+  usersFollowing: "users/following",
+  usersFollow: "users/follow",
 };
 
 export const authUrls = {
@@ -15,6 +19,7 @@ export const adminUrls = {
   adminLogin: "/admin/login",
   adminUsers: "/admin/users",
   adminUsersStatus: "/admin/users/status",
+  adminPostsReport: "/admin/posts/reports",
 };
 
 export const postUrls = {
@@ -24,4 +29,5 @@ export const postUrls = {
   postsLike: "/posts/like",
   postsSave: "/posts/save",
   postsComment: "/posts/comment",
+  postsReport: "/posts/report",
 };

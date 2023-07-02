@@ -12,6 +12,7 @@ import EditProfile from "../components/profile/options/EditProfile";
 import ChangePass from "../components/profile/options/ChangePass";
 import SinglePost from "../pages/post/SinglePost";
 import Explore from "../pages/explore/explore";
+import PostAds from "../pages/post/PostAds";
 
 const appRouter = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/explore",
         element: <Explore />,
+      },
+      {
+        path: "/ads",
+        element: <PostAds />,
       },
     ],
   },

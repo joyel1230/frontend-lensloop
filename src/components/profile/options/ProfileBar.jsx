@@ -3,7 +3,7 @@ import Loading from "../../loading/Loading";
 import { Link } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
-const ProfileBar = ({ load, change }) => {
+const ProfileBar = ({ load, change, user }) => {
   const [underline, setUnderline] = useState("");
   return (
     <div className="px-1 sm:w-[85%] sm:mx-auto  select-none">
@@ -12,25 +12,52 @@ const ProfileBar = ({ load, change }) => {
         <div className="flex items-center gap-4">
           <h1
             className={`cursor-pointer ${underline === "" ? `underline` : ""}`}
-            onClick={() => {change("");setUnderline('')}}
+            onClick={() => {
+              change("");
+              setUnderline("");
+            }}
           >
             Posts
           </h1>
-          <Link to={`/new-post`}>
-            <AiOutlinePlusCircle />
-          </Link>
+          {user && (
+            <Link to={`/new-post`}>
+              <AiOutlinePlusCircle />
+            </Link>
+          )}
         </div>
-        <div>
-          <h1 className={`cursor-pointer ${underline === "saved" ? `underline` : ""}`} onClick={() => {change("saved");setUnderline('saved')}}>
-            Saved
-          </h1>
-        </div>
-        <div className="flex items-center gap-4">
-          <h1 className={`cursor-pointer ${underline === "ads" ? `underline` : ""}`} onClick={() => {change("ads");setUnderline('ads')}}>ADS</h1>
-          <Link to={`/ad-post`}>
-            <AiOutlinePlusCircle />
-          </Link>
-        </div>
+        {user && (
+          <>
+            <div>
+              <h1
+                className={`cursor-pointer ${
+                  underline === "saved" ? `underline` : ""
+                }`}
+                onClick={() => {
+                  change("saved");
+                  setUnderline("saved");
+                }}
+              >
+                Saved
+              </h1>
+            </div>
+            <div className="flex items-center gap-4">
+              <h1
+                className={`cursor-pointer ${
+                  underline === "ads" ? `underline` : ""
+                }`}
+                onClick={() => {
+                  change("ads");
+                  setUnderline("ads");
+                }}
+              >
+                ADS
+              </h1>
+              <Link to={`/ads`}>
+                <AiOutlinePlusCircle />
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

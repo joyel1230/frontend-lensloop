@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { AiOutlineHome } from "react-icons/ai";
+import { GoReport } from "react-icons/go";
 import { FiUsers, FiLogOut } from "react-icons/fi";
 import { BsCashStack } from "react-icons/bs";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
@@ -38,21 +38,6 @@ const AdminNavBar = () => {
             </span>
           </li>
         </Link>
-        {/* <Link to={""}>
-          <li
-            className="flex gap-5 items-center justify-center sm:justify-normal"
-            onClick={() => setActiveItem("search")}
-          >
-            <FiUsers size={30} color="current" />
-            <span
-              className={`sm:flex hidden ${
-                activeItem === "search" ? "text-lg" : ""
-              }`}
-            >
-              USERS
-            </span>
-          </li>
-        </Link> */}
         <Link to={"/admin/posts"}>
           <li
             className="flex gap-5 items-center justify-center sm:justify-normal"
@@ -65,6 +50,21 @@ const AdminNavBar = () => {
               }`}
             >
               POSTS
+            </span>
+          </li>
+        </Link>
+        <Link to={"/admin/reports"}>
+          <li
+            className="flex gap-5 items-center justify-center sm:justify-normal"
+            onClick={() => setActiveItem("report")}
+          >
+            <GoReport size={30} color="current" />
+            <span
+              className={`sm:flex hidden ${
+                activeItem === "report" ? "text-lg" : ""
+              }`}
+            >
+              REPORT
             </span>
           </li>
         </Link>

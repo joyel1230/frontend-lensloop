@@ -11,7 +11,7 @@ export const getComments = async (post) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -21,7 +21,7 @@ export const postComment = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -31,7 +31,7 @@ export const patchLike = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -41,7 +41,7 @@ export const patchSave = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -51,7 +51,7 @@ export const getSavedPost = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -61,7 +61,7 @@ export const getUserPost = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -75,7 +75,7 @@ export const patchPassword = async (userDetails, data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -85,7 +85,7 @@ export const getUserByUsername = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -99,7 +99,7 @@ export const patchProfile = async (userDetails, data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -109,7 +109,7 @@ export const getAllPosts = async () => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -119,7 +119,7 @@ export const postForgot = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -129,7 +129,7 @@ export const postLogin = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -139,17 +139,17 @@ export const postUpload = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
 export const getSinglePost = async (post) => {
   try {
-    const resp = await apiCall("get", `${postUrls.posts}/${post?.id}`, {})
+    const resp = await apiCall("get", `${postUrls.posts}/${post?.id}`, {});
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -159,6 +159,56 @@ export const postRegister = async (data) => {
     return resp;
   } catch (error) {
     console.error(error);
-    return error?.response
+    return error?.response;
+  }
+};
+
+export const postReport = async (data) => {
+  try {
+    const resp = await apiCall("post", postUrls.postsReport, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+
+export const patchPrivate = async (data) => {
+  try {
+    const resp = await apiCall("patch", userUrls.usersPrivate, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+
+export const postFollowers = async (data) => {
+  try {
+    const resp = await apiCall("post", userUrls.usersFollowers, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+
+export const postFollowing = async (data) => {
+  try {
+    const resp = await apiCall("post", userUrls.usersFollowing, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+
+export const getFollow = async (data) => {
+  try {
+    const resp = await apiCall("get", userUrls.usersFollow, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
   }
 };
