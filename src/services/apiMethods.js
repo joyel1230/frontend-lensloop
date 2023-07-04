@@ -1,4 +1,4 @@
-import { postUrls, userUrls } from "../const/routesPath";
+import { adsUrls, postUrls, userUrls } from "../const/routesPath";
 import { apiCall } from "./apiCalls";
 
 export const getComments = async (post) => {
@@ -212,3 +212,44 @@ export const getFollow = async (data) => {
     return error?.response;
   }
 };
+
+export const postAds = async (data) => {
+  try {
+    const resp = await apiCall("post", adsUrls.ads, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+
+export const postPayment = async (data) => {
+  try {
+    const resp = await apiCall("post", adsUrls.adsPayment, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+
+export const patchPayment = async (data) => {
+  try {
+    const resp = await apiCall("patch", adsUrls.adsPayment, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+
+export const getAds = async (data) => {
+  try {
+    const resp = await apiCall("get", adsUrls.ads, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+

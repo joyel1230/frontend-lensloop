@@ -5,9 +5,9 @@ import { useDispatch } from "react-redux";
 import { setUserPosts } from "../../../utils/reduxSlices/userPost";
 import ProfileBar from "../options/ProfileBar";
 import { Link } from "react-router-dom";
-import { getSavedPost, getUserPost } from "../../../services/apiMethods";
+import { getAds, getSavedPost, getUserPost } from "../../../services/apiMethods";
 
-const ProfilePostSection = ({ userId, isUser ,setCount}) => {
+const ProfilePostSection = ({ userId, isUser, setCount }) => {
   const dispatch = useDispatch();
   const [load, setload] = useState(true);
   const [page, setPage] = useState("");
@@ -23,10 +23,19 @@ const ProfilePostSection = ({ userId, isUser ,setCount}) => {
         .catch((e) => {
           console.log(e);
         });
+    } else if (page === "ads") {
+      getAds(data)
+        .then((response) => {
+          setPosts(response.data);
+          dispatch(setUserPosts(response.data));
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } else {
       getUserPost(data)
         .then((response) => {
-          setCount(response.data?.length)
+          setCount(response.data?.length);
           setPosts(response.data);
           dispatch(setUserPosts(response.data));
           setTimeout(() => {
@@ -53,7 +62,12 @@ const ProfilePostSection = ({ userId, isUser ,setCount}) => {
               <img src={post2?.image} width={400} alt="" />
             </Link>
           ) : (
-            <FullPost profile={true}  postDetails={post2} online={false} key={post2?._id} />
+            <FullPost
+              profile={true}
+              postDetails={post2}
+              online={false}
+              key={post2?._id}
+            />
           );
         })}
       </div>

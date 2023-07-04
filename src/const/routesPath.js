@@ -31,3 +31,9 @@ export const postUrls = {
   postsComment: "/posts/comment",
   postsReport: "/posts/report",
 };
+
+export const adsUrls = {
+  ads: "/ads",
+  adsPayment: "/ads/payment",
+  adsDelete: "/ads/delete",
+};

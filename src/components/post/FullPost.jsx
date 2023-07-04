@@ -132,25 +132,29 @@ const FullPost = ({ postDetails, width, online, profile }) => {
           <Post w={width} imgUrl={postDetails?.image} />
         </span>
       )}
-      <div className="mt-2 flex justify-between mx-4">
-        <div className="flex justify-between gap-3 relative">
-          <span onClick={() => handleLikes(!liked)} className="absolute">
-            <Like liked={liked} />
-          </span>
-          <span className="ms-10">
-            <Comment postDetails={postDetails} />
-          </span>
-          <span onClick={() => handleShare(postDetails)}>
-            <Share />
-          </span>
-        </div>
-        {userDetails?.username !== postDetails?.userId?.username && (
-          <div onClick={() => handleSave(!saved)}>
-            <Save saved={saved} />
+      {!postDetails.days && (
+        <>
+          <div className="mt-2 flex justify-between mx-4">
+            <div className="flex justify-between gap-3 relative">
+              <span onClick={() => handleLikes(!liked)} className="absolute">
+                <Like liked={liked} />
+              </span>
+              <span className="ms-10">
+                <Comment postDetails={postDetails} />
+              </span>
+              <span onClick={() => handleShare(postDetails)}>
+                <Share />
+              </span>
+            </div>
+            {userDetails?.username !== postDetails?.userId?.username && (
+              <div onClick={() => handleSave(!saved)}>
+                <Save saved={saved} />
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <div className="ml-4 my-1 select-none">{likeCount} likes</div>
+          <div className="ml-4 my-1 select-none">{likeCount} likes</div>
+        </>
+      )}
       <div
         className={`ml-4 ${
           desc ? "max-w-[37rem]" : "max-w-[23rem]"

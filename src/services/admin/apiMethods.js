@@ -1,4 +1,4 @@
-import { adminUrls, postUrls } from "../../const/routesPath";
+import { adminUrls, adsUrls, postUrls } from "../../const/routesPath";
 import { adminApiCall } from "./apiCalls";
 
 export const getPosts = async () => {
@@ -62,6 +62,15 @@ export const getReports = async () => {
       "get",
       adminUrls.adminPostsReport,
     );
+    return resp
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const patchAd = async (data) => {
+  try {
+    const resp = await adminApiCall("patch",adsUrls.adsDelete,data)
     return resp
   } catch (error) {
     console.error(error);
