@@ -1,4 +1,4 @@
-# Getting Started with LensLoop
+# Getting Started with LensLoop.
 
 
 ## Available Scripts
