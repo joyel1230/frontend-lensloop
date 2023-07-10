@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import Loading from "../../components/loading/Loading";
 import { getUsers } from "../../services/admin/apiMethods";
 import { Link } from "react-router-dom";
+import Back from "../micros/Back";
 
-const Search = ({ show }) => {
+const MsgSearch = () => {
   const [users, setUsers] = useState([]);
   const [searchUsers, setSearchUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,14 +39,11 @@ const Search = ({ show }) => {
 
   return (
     <>
-      <div
-        className="fixed top-0 left-0 right-0 bottom-0 z-10"
-        onClick={() => show(false)}
-      ></div>
 
       <div className="w-[22rem] rounded-xl h-[35rem] hide-scrollbar overflow-y-auto bg-black bg-opacity-90 fixed top-[50%] left-[50%] right-[auto] bottom-[auto] -mr-[50%] transform translate-x-[-50%] translate-y-[-50%]  z-20 border-2">
+        <Back/>
         <h2 className="text-lg text-center pt-2 font-semibold font-sans">
-          Search Users
+          Chat Users
         </h2>
         <div className="p-10">
           <input
@@ -61,8 +59,8 @@ const Search = ({ show }) => {
               ? searchUsers.map((user) => {
                   return (
                     <Link
-                      to={`/${user.username}`}
-                      onClick={() => show(false)}
+                      to={`/message/${user.username}`}
+                      onClick={() => ''}
                       key={user._id}
                     >
                       <div className="flex w-[80%] ms-16">
@@ -96,4 +94,4 @@ const Search = ({ show }) => {
   );
 };
 
-export default Search;
+export default MsgSearch;

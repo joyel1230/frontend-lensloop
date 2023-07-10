@@ -13,6 +13,8 @@ import ChangePass from "../components/profile/options/ChangePass";
 import SinglePost from "../pages/post/SinglePost";
 import Explore from "../pages/explore/explore";
 import PostAds from "../pages/post/PostAds";
+import Message from "../pages/message/Message";
+import ChatWindow from "../components/message/ChatWindow";
 
 const appRouter = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/ads",
         element: <PostAds />,
+      },
+      {
+        path: "/message",
+        element: <Message />,
+      },
+      {
+        path: "/message/:username",
+        element: <ChatWindow />,
       },
     ],
   },

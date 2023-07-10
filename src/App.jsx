@@ -6,9 +6,11 @@ import AuthMiddleWare from "./services/authMiddleWare";
 import { getUserByUsername } from "./services/apiMethods";
 import { userAuth } from "./const/localstorage";
 import Search from "./pages/search/Search";
+import Notify from "./pages/notification/Notify";
 
 function App() {
   const [showSearch, setShowSearch] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   let user;
   const obj = AuthMiddleWare();
   useEffect(() => {
@@ -47,11 +49,12 @@ function App() {
         <div className="h-screen w-full flex flex-col justify-between">
           <div className="w-full h-full flex mt-0">
             <div className="w-[20%] min-w-fit h-full p-1 py-5 sm:py-1">
-              <NavBar search={setShowSearch} />
+              <NavBar search={setShowSearch} notify={setShowNotification} />
             </div>
             <div className="w-[80%]  overflow-y-auto max-h-[100%] py-10 px-2 hide-scrollbar">
               <Outlet />
               {showSearch && <Search show={setShowSearch} />}
+              {showNotification && <Notify show={setShowNotification} />}
             </div>
           </div>
         </div>

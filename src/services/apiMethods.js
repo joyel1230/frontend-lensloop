@@ -253,3 +253,22 @@ export const getAds = async (data) => {
   }
 };
 
+export const postChat = async (data) => {
+  try {
+    const resp = await apiCall("post", userUrls.usersChat, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};
+
+export const getChat = async (data) => {
+  try {
+    const resp = await apiCall("get", userUrls.usersChat, data);
+    return resp;
+  } catch (error) {
+    console.error(error);
+    return error?.response;
+  }
+};

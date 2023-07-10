@@ -9,6 +9,7 @@ export const userUrls = {
   usersFollowers: "users/followers",
   usersFollowing: "users/following",
   usersFollow: "users/follow",
+  usersChat: "users/chat",
 };
 
 export const authUrls = {
